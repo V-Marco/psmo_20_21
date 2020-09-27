@@ -1,0 +1,348 @@
+\documentclass[10pt, a4paper]{extarticle}
+
+%% Язык
+\usepackage{cmap} % Поиск в PDF
+\usepackage{mathtext} % Кириллица в формулах
+\usepackage[T2A]{fontenc} % Кодировка
+\usepackage[utf8]{inputenc} % Кодировка
+\usepackage[english,russian]{babel} % Локализация, переносы
+
+%% Шрифты
+
+% Serif
+%\usepackage{euscript} % Шрифт Евклид
+%\usepackage{mathrsfs} % Шрифт для математики
+\usepackage{libertinus}
+
+% Sans-serif
+%\renewcommand{\rmdefault}{cmss}
+%\renewcommand{\ttdefault}{cmss}
+%\usepackage{sfmath}
+
+% Настройки для xelatex
+%\usepackage{polyglossia} % Для выбора языка в xelatex
+%\setmainlanguage{russian}
+%\setotherlanguages{english}
+% Ligatures=TeX is on by default
+% https://tex.stackexchange.com/questions/323542/
+%\setmainfont[Ligatures=TeX]{Cantarell}
+%\newfontfamily{\cyrillicfonttt}{Times New Roman}
+%\newfontfamily\cyrillicfont{Cantarell}[Script=Cyrillic]
+%\setsansfont[Ligatures=TeX]{Cantarell}
+%\newfontfamily\cyrillicfontsf{Cantarell}[Script=Cyrillic]
+%\setmonofont{Courier New}
+%\newfontfamily\cyrillicfonttt{Courier New}[Script=Cyrillic]
+
+%% Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{icomma}
+
+% Операторы
+\DeclareMathOperator*\plim{plim}
+\DeclareMathOperator{\sgn}{sign}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\amn}{arg\,min}
+\DeclareMathOperator*{\amx}{arg\,max}
+\DeclareMathOperator{\cov}{Cov}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Corr}{Corr}
+\DeclareMathOperator{\pCorr}{pCorr}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\let\P\relax
+\DeclareMathOperator{\P}{\mathbb{P}}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+% Распределения
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cBinom}{\mathcal{Binom}}
+\newcommand{\cPois}{\mathcal{Pois}}
+\newcommand{\cBeta}{\mathcal{Beta}}
+\newcommand{\cGamma}{\mathcal{Gamma}}
+
+% Множества
+\def \R{\mathbb{R}}
+\def \N{\mathbb{N}}
+\def \Z{\mathbb{Z}}
+
+% Другое
+\newcommand{\dx}[1]{\,\mathrm{d}#1} % Для интеграла: маленький отступ и прямая d
+\newcommand{\ind}[1]{\mathbbm{1}_{\{#1\}}} % Индикатор события
+\newcommand{\iid}{\mathrel{\stackrel{\rm i.\,i.\,d.}\sim}}
+\newcommand{\const}{\mathrm{const}}
+
+%% Изображения
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{physics}
+\usepackage{wrapfig} % Обтекание рисунков и таблиц текстом
+\usepackage{tikz}
+
+%% Таблицы
+\usepackage{array, tabularx, tabulary, booktabs}
+\usepackage{longtable}  % Длинные таблицы
+\usepackage{multirow} % Слияние строк в таблице
+
+%% Cписки
+\usepackage{multicol}
+\usepackage{enumitem}
+
+%% Гиперссылки
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{8b00ff}
+\hypersetup{colorlinks = true,
+			linkcolor = linkcolor,
+			urlcolor = linkcolor,
+			citecolor = linkcolor}
+
+%% Выравнивание
+\setlength{\parskip}{0.5em} % Расстояние между абзацами
+\usepackage{geometry} % Поля
+\geometry{
+	a4paper,
+	left=20mm,
+	top=20mm,
+	right=20mm}
+\setlength{\parindent}{0cm} % Отступ (красная строка)
+\linespread{1.0} % Интерлиньяж
+\usepackage[many]{tcolorbox}  
+
+%% Оформление
+
+\newtcolorbox{rulesbox}[1]{%
+	tikznode boxed title,
+	enhanced,
+	arc=0mm,
+	interior style={white},
+	attach boxed title to top center= {yshift=-\tcboxedtitleheight/2},
+	fonttitle=\bfseries,
+	colbacktitle=white,coltitle=black,
+	boxed title style={size=normal,colframe=white,boxrule=0pt},
+	title={#1}}
+
+% Красивый серый фон
+\usepackage{framed} 
+\definecolor{shadecolor}{gray}{0.9}
+
+% Код
+\newcommand{\code}[1]{{\tt #1}}
+
+% Колонтитулы
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{}
+\fancyhead[R]{\thepage}
+
+% Разделы и подразделы
+\usepackage[sf, sl, outermarks]{titlesec}
+\titleformat{\section}{\Large\bfseries\sffamily}{\thesection}{0.5em}{}
+\titleformat{\subsection}{\large\sffamily}{\thesubsection}{0.5em}{}
+
+% Содержание
+%\usepackage{tocloft}
+%\renewcommand{\cftsecfont}{\hspace{4.5em}\normalfont}
+%\renewcommand{\cftsubsecfont}{\hspace{5em}\normalfont}
+%\renewcommand{\cftsecpagefont}{\normalfont\hfill}
+%\renewcommand{\cfttoctitlefont}{\large\normalfont\hfill}
+%\renewcommand{\cftaftertoctitle}{\hfill}
+%\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+%\renewcommand{\cftsecafterpnum}{\hspace*{5.5em}\hfill}
+%\renewcommand{\cftsubsecafterpnum}{\hspace*{5.5em}\hfill}
+%\renewcommand{\cftsecaftersnum}{.}
+%\renewcommand{\cftsubsecaftersnum}{.}
+
+%% Комментарии
+\usepackage{comment}
+
+%% To-do
+\usepackage{todonotes}
+
+%% Литература
+\usepackage[backend = biber,
+			bibencoding = utf8, 
+			sorting = nty, 
+			maxcitenames = 4,
+			style = numeric-verb]{biblatex}
+\addbibresource{lit.bib}
+\usepackage{csquotes}
+
+%% Заголовок
+\title{{\normalsize Прикладная статистика в машинном обучении} \\\vspace{0.5em} Домашнее задание \#1}
+\author{Дедлайн: 11 октября, 23:59 МСК}
+\date{\rule{15cm}{0.4pt}}
+
+
+
+
+\begin{document}
+	
+	\maketitle
+	
+	\begin{rulesbox}{Правила игры}
+		\begin{enumerate}
+			\item Домашнее задание оценивается в $10$ баллов.
+			\item Решения принимаются до \textbf{11 октября 2020 года, 23:59 МСК} включительно.
+			Работы, отправленные после дедлайна, оцениваются следующим образом:
+			\begin{itemize}
+				\item До 7:00 МСК 12 октября: максимум 8 баллов.
+				\item До 23:59 МСК 12 октября: максимум 7 баллов.
+				\item До 23:59 МСК 13 октября: максимум 6 баллов.
+			\end{itemize}
+			Работы, отправленные после 13-го октября, будут проверены без оценки.
+			\item Все решения нужно загрузить в личный репозиторий на \href{https://classroom.github.com/a/szspisNo}{GitHub Classroom}.
+			\item Репозиторий должен содержать:
+				\begin{description}
+					\item[либо:] PDF-файл с решениями теоретических задач и .ipynb-файл с решениями экспериментальных задач.
+					Решение теоретических задач можно набрать в любом электронном редакторе или написать от руки, а затем сделать качественный скан.
+					Все решения должны быть расположены в правильном порядке в одном файле.
+					Если экспериментальная задача является частью теоретической, то в .ipynb-файле нужно явно указать номер теоретической задачи.
+					
+					PDF-файл должен иметь название name\_surname\_hw1.pdf, а .ipynb-файл должен называться name\_surname\_hw1\_code.pdf
+					\item[либо:] один .ipynb-файл с решениями и практических, и теоретических задач, оформленных в ячейках Markdown.
+					
+					.ipynb-файл должен иметь название name\_surname\_hw1.pdf
+				\end{description}
+			 \item Весь код должен быть написан на Python.
+			 \item Разрешается использовать без доказательства любые результаты, встречавшиеся на лекциях или семинарах по курсу, если получение этих результатов не является вопросом задания. 
+			 \item Разрешается использовать любые свободные источники с указанием ссылки на них.
+			 \item Плагиат не допускается.
+			 При обнаружении случаев списывания, $0$ за работу выставляется всем участникам нарушения, даже если можно установить, кто у кого списал. 
+		\end{enumerate}
+	\end{rulesbox}
+	
+	\newpage
+
+	{\Large \textbf{Задача 1.} Полезное утверждение (3 балла)}
+	
+	Гарри никак не может понять, почему при большой информации Фишера оценки максимального правдоподобия лежат к истинному параметру ближе, чем при малой информации Фишера.
+	Гермиона решает продемонстрировать аналитическую интуицию, стоящую за этим утверждением:
+	
+	<<Если взять выборку независимых одинаково распределённых случайных величин $Y_1$, $\ldots$, $Y_N$, каждая из которых имеет функцию плотности или функцию вероятности $f(y | \theta)$, и предположить, что выполнены все необходимые условия регулярности, то при $\phi \to \theta$:
+	\begin{align*}
+	D_{KL}\left[f(y | \theta), f(y | \phi)\right] = \dfrac{1}{2} I(\theta)(\phi - \theta)^2 + O((\phi - \theta)^3)\text{>>}.
+	\end{align*}
+	
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Докажите утверждение Гермионы либо для случая функций плотности, либо для случая функций вероятности.
+		\item Поясните Гарри, почему при большей информации Фишера ML-оценки лежат ближе к истинному параметру. 
+	\end{enumerate}
+
+	\textit{Подсказка:} $H(f) = \E(\ln f)$, аналогично для кросс-энтропии.
+	
+	\begin{flushright}
+		\textit{\small (По мотивам: Williams, Weighing the Odds)}
+	\end{flushright}
+
+	
+	{\Large \textbf{Задача 2.} Непростительные заклинания (2 балла)}
+	
+	Рон убеждён, что время, которое уходит на произнесение одного непростительного заклинания -- это непрерывная случайная величина с плотностью
+	\[
+	f(x | q) = \begin{cases}
+		\frac{2x}{q} e^{\frac{-x^2}{q}}, &\text{ если } x > 0, \\
+		0, &\text{ иначе,}
+	\end{cases}
+	\]
+	где $q > 0$.
+	Предположим, что все непростительные заклинания произносятся за одинаковое время.
+	Рон длительное время наблюдал за тёмными волшебниками, а потому собрал случайную выборку $X_1$, $\ldots$ $X_N$, где $X_i$ -- время произнесения непростительного заклинания, а $N$ очень велико.
+	
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Найдите $\hat{q}_{ML}$.
+		\item Найдите $\widehat{(q^2)}_{ML}$
+		\item Постройте 95\%-ый доверительный интервал для $q$.
+		\item Повторите предыдущие пункты на компьютере, численно оптимизировав функцию правдоподобия.
+		Подробно опишите, с какими трудностями вы столкнулись в процессе и как вы их преодолели.
+		Если трудностей не возникло, также напишите об этом. 
+	\end{enumerate}
+
+	{\Large \textbf{Задача 3.} Палочки и волшебники (2 балла)}
+	
+	Дамблдор уверен, что среди первокурсников встречаются только обладатели палочек из вишни, дуба и вяза.
+	Воспользовавшись своими способностями в легилименции на пиру в честь начала нового учебного года, Дамблдор узнаёт, что из $150$ первокурсников $75$ имеют палочки из вишни, $30$ -- из дуба и $45$ -- из вяза.
+	Дамблдор считает, что палочки выбирают волшебников независимо друг от друга, и вероятность того, что у волшебника окажется вишнёвая палочка, равна $p_1$, а что дубовая, равна $p_2$.
+	
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Обозначим $p = \begin{pmatrix}
+			p_1 \\
+			p_2
+		\end{pmatrix}$. Найдите $\hat{p}_{ML}$.
+		
+		\item Проверьте гипотезу $H_0: p_1 = 0.7$ против $H_A: p_1 \ne 0.7$ на уровне значимости $5\%$ при помощи тестов $LR$ и $LM$.
+		
+		\item Проверьте гипотезу
+		\[
+		H_0: \begin{pmatrix}
+			p_1 \\
+			p_2
+		\end{pmatrix} = \begin{pmatrix}
+		0.4 \\
+		0.6
+	\end{pmatrix}
+	\]
+ 	против 
+ 	\[
+ 	H_A: \begin{pmatrix}
+ 		p_1 \\
+ 		p_2
+ 	\end{pmatrix} \ne \begin{pmatrix}
+ 		0.4 \\
+ 		0.6
+ 	\end{pmatrix}
+ 	\]
+ 	на уровне значимости $5\%$ при помощи теста $W$.
+ 	\item Постройте $95\%$-ый доверительный интервал для $p_1 - p_2$.
+	\end{enumerate}
+
+	
+	{\Large \textbf{Задача 4.} Модель для зелий (3 балла)}
+	
+	Полумна хочет построить предсказательную модель, которая бы описывала зависимость популярности зелья $y_i$ от силы его положительного влияния $x_i$.
+	Обе величины являются количественными непрерывными переменными на $\R$.
+	Предположим, что Полумна знает, как измерить популярность и силу влияния и верит, что искомая зависимость имеет следующий вид:
+	\[
+	y_i = \beta_1 e^{\beta_2 x_i}u_i,
+	\]
+	где $\beta_1$ и $\beta_2$ -- неизвестные коэффициенты, не равные нулю, $u_i $ -- случайная ошибка, причём $\ln u_i \sim \mathcal{N}(0,1)$.
+	
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Является ли данная зависимость линейной по $\beta_1$?
+		А по $\beta_2$?
+		\item Найдите $\hat{\beta}_1$ и $\hat{\beta}_2$ методом максимального правдоподобия. 
+		\item Симулируйте $300$ наблюдений $(x_i, y_i)$ таким образом, что $x_i \sim \mathcal{N}(0, 1)$, $y_i = 3e^{x_i}u_i$, $\ln u_i \sim \mathcal{N}(0, 1)$.
+		\item По полученным данным найдите $\hat{\beta}_1$ и $\hat{\beta}_2$ в числах.
+		\item Проверьте гипотезу
+		\[
+		H_0: \begin{pmatrix}
+			\beta_1 \\
+			\beta_2 \\
+		\end{pmatrix} = 
+		\begin{pmatrix}
+			1 \\
+			2 \\
+		\end{pmatrix}
+		\]
+		против
+		\[
+		 H_A: \begin{pmatrix}
+			\beta_1 \\
+			\beta_2 \\
+		\end{pmatrix} \ne
+		\begin{pmatrix}
+			1 \\
+			2 \\
+		\end{pmatrix}
+		\]
+		на уровне значимости $5\%$ при помощи теста $LR$.
+	\end{enumerate}
+	
+\end{document}
