@@ -1,0 +1,248 @@
+\documentclass[10pt, a4paper]{extarticle}
+
+%% Язык
+\usepackage{cmap} % Поиск в PDF
+\usepackage{mathtext} % Кириллица в формулах
+\usepackage[T2A]{fontenc} % Кодировка
+\usepackage[utf8]{inputenc} % Кодировка
+\usepackage[english,russian]{babel} % Локализация, переносы
+
+%% Шрифты
+
+% Serif
+%\usepackage{euscript} % Шрифт Евклид
+%\usepackage{mathrsfs} % Шрифт для математики
+\usepackage{libertinus}
+
+% Sans-serif
+%\renewcommand{\rmdefault}{cmss}
+%\renewcommand{\ttdefault}{cmss}
+%\usepackage{sfmath}
+
+% Настройки для xelatex
+%\usepackage{polyglossia} % Для выбора языка в xelatex
+%\setmainlanguage{russian}
+%\setotherlanguages{english}
+% Ligatures=TeX is on by default
+% https://tex.stackexchange.com/questions/323542/
+%\setmainfont[Ligatures=TeX]{Cantarell}
+%\newfontfamily{\cyrillicfonttt}{Times New Roman}
+%\newfontfamily\cyrillicfont{Cantarell}[Script=Cyrillic]
+%\setsansfont[Ligatures=TeX]{Cantarell}
+%\newfontfamily\cyrillicfontsf{Cantarell}[Script=Cyrillic]
+%\setmonofont{Courier New}
+%\newfontfamily\cyrillicfonttt{Courier New}[Script=Cyrillic]
+
+%% Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{icomma}
+
+% Операторы
+\DeclareMathOperator*\plim{plim}
+\DeclareMathOperator{\sgn}{sign}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\amn}{arg\,min}
+\DeclareMathOperator*{\amx}{arg\,max}
+\DeclareMathOperator{\cov}{Cov}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Corr}{Corr}
+\DeclareMathOperator{\pCorr}{pCorr}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\let\P\relax
+\DeclareMathOperator{\P}{\mathbb{P}}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+% Распределения
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cBinom}{\mathcal{Binom}}
+\newcommand{\cPois}{\mathcal{Pois}}
+\newcommand{\cBeta}{\mathcal{Beta}}
+\newcommand{\cGamma}{\mathcal{Gamma}}
+
+% Множества
+\def \R{\mathbb{R}}
+\def \N{\mathbb{N}}
+\def \Z{\mathbb{Z}}
+
+% Другое
+\newcommand{\dx}[1]{\,\mathrm{d}#1} % Для интеграла: маленький отступ и прямая d
+\newcommand{\ind}[1]{\mathbbm{1}_{\{#1\}}} % Индикатор события
+\newcommand{\iid}{\mathrel{\stackrel{\rm i.\,i.\,d.}\sim}}
+\newcommand{\const}{\mathrm{const}}
+
+%% Изображения
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{physics}
+\usepackage{wrapfig} % Обтекание рисунков и таблиц текстом
+\usepackage{tikz}
+
+%% Таблицы
+\usepackage{array, tabularx, tabulary, booktabs}
+\usepackage{longtable}  % Длинные таблицы
+\usepackage{multirow} % Слияние строк в таблице
+
+%% Cписки
+\usepackage{multicol}
+\usepackage{enumitem}
+
+%% Гиперссылки
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{8b00ff}
+\hypersetup{colorlinks = true,
+			linkcolor = linkcolor,
+			urlcolor = linkcolor,
+			citecolor = linkcolor}
+
+%% Выравнивание
+\setlength{\parskip}{0.5em} % Расстояние между абзацами
+\usepackage{geometry} % Поля
+\geometry{
+	a4paper,
+	left=20mm,
+	top=20mm,
+	right=20mm}
+\setlength{\parindent}{0cm} % Отступ (красная строка)
+\linespread{1.0} % Интерлиньяж
+\usepackage[many]{tcolorbox}  
+
+%% Оформление
+
+\newtcolorbox{rulesbox}[1]{%
+	tikznode boxed title,
+	enhanced,
+	arc=0mm,
+	interior style={white},
+	attach boxed title to top center= {yshift=-\tcboxedtitleheight/2},
+	fonttitle=\bfseries,
+	colbacktitle=white,coltitle=black,
+	boxed title style={size=normal,colframe=white,boxrule=0pt},
+	title={#1}}
+
+% Красивый серый фон
+\usepackage{framed} 
+\definecolor{shadecolor}{gray}{0.9}
+
+% Код
+\newcommand{\code}[1]{{\tt #1}}
+
+% Колонтитулы
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{}
+\fancyhead[R]{\thepage}
+
+% Разделы и подразделы
+\usepackage[sf, sl, outermarks]{titlesec}
+\titleformat{\section}{\Large\bfseries\sffamily}{\thesection}{0.5em}{}
+\titleformat{\subsection}{\large\sffamily}{\thesubsection}{0.5em}{}
+
+% Содержание
+%\usepackage{tocloft}
+%\renewcommand{\cftsecfont}{\hspace{4.5em}\normalfont}
+%\renewcommand{\cftsubsecfont}{\hspace{5em}\normalfont}
+%\renewcommand{\cftsecpagefont}{\normalfont\hfill}
+%\renewcommand{\cfttoctitlefont}{\large\normalfont\hfill}
+%\renewcommand{\cftaftertoctitle}{\hfill}
+%\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+%\renewcommand{\cftsecafterpnum}{\hspace*{5.5em}\hfill}
+%\renewcommand{\cftsubsecafterpnum}{\hspace*{5.5em}\hfill}
+%\renewcommand{\cftsecaftersnum}{.}
+%\renewcommand{\cftsubsecaftersnum}{.}
+
+%% Комментарии
+\usepackage{comment}
+
+%% To-do
+\usepackage{todonotes}
+
+%% Литература
+\usepackage[backend = biber,
+			bibencoding = utf8, 
+			sorting = nty, 
+			maxcitenames = 4,
+			style = numeric-verb]{biblatex}
+\addbibresource{lit.bib}
+\usepackage{csquotes}
+
+%% Заголовок
+\title{{\normalsize Прикладная статистика в машинном обучении} \\ \vspace{0.5em} Полезная информация о контрольной работе}
+\author{\rule{15cm}{0.4pt}}
+
+
+
+
+\begin{document}
+	
+	\maketitle
+
+	{\Large \textbf{Список тем.}}
+	
+	\begin{enumerate}
+		\item Метод максимального правдоподобия:
+		\begin{itemize}
+			\item Уметь находить ML-оценки.
+			\item Знать свойства ML-оценок.
+			\item Уметь строить доверительные интервалы для ML-оценок.
+		\end{itemize}
+		\item Тесты $LR$, $LM$, $W$.
+		\item KL-дивергенция.
+		\item EM-алгоритм. 
+		\item Bootstrap.
+		\item Геометрия МНК. 
+		\item Нормальное и многомерное нормальное распределения.
+	\end{enumerate}
+	\vspace{2em}
+
+	{\Large \textbf{Примеры задач.}}
+	
+	\textbf{NB!} Задачи, приведённые ниже, скорее, отражают уровень сложности заданий контрольной, но не являются конкретными примерами этих заданий. 
+	\vspace{1em}
+	
+	{\large \textbf{Задача 1.}} Степан хочет проверить утверждение организаторов лотереи <<Большой-Пребольшой>>, что почти треть всех билетов являются выигрышными. Для этого он попросил $n$ своих друзей купить по 10 лотерейных билетов. Пусть $X_i$ -- число выигрышных билетов друга $i$, а $p$ -- вероятность выигрыша одного билета. 
+	
+	\begin{enumerate}
+		\item Какое распределение имеет величина $X_i$?
+		\item Запишите функцию правдоподобия для выборки $X_1$, $\ldots$, $X_n$.
+		\item Найдите $\hat{p}_{ML}$.
+		\item Постройте 95\%-ый доверительный интервал для $p$.
+		\item Найдите оценку математического ожидания и дисперсии выигранных произвольным другом билетов. 
+		\item Постройте 95\%-ый доверительный интервал для математического ожидания и дисперсии выигранных произвольным другом билетов.
+		\item Дана реализация случайной выборки пяти друзей. Число выигрышных билетов оказалось равно $(3, 4, 0, 2, 6)$. Найдите значение точечной оценки вероятности выигрыша $p$. Похоже ли утверждение организаторов на правду? 
+	\end{enumerate}
+	\vspace{1em}
+	
+	{\large \textbf{Задача 2.}} Пусть регрессионная модель $y_i = \beta_0 + u_i$ оценивается методом МНК. 
+	\begin{enumerate}
+		\item Найдите величины $TSS$, $ESS$, $RSS$, $R^2$, scorr$(y, \hat{y})$, scov$(y, \hat{y})$.
+		\item Покажите эти величины на картинке МНК.
+	\end{enumerate}
+	\vspace{1em}
+	
+	{\large \textbf{Задача 3.}} Вектор $u$ имеет стандартное нормальное распределение, $u \sim \mathcal{N}(0, I)$. Матрица $A$ такова, что $Au$ тоже имеет стандартное нормальное распределение, $Au \sim \mathcal{N}(0, I)$.
+	\begin{enumerate}
+		\item Выпишите уравнение, которому подчиняется матрица $A$.
+		\item Чему может равняться $\det A$?
+		\item Пусть $c_1$ и $c_2$ -- первый и второй столбцы матрицы $A$. Найдите $c_1'c_2$.
+		\item Какое распределение имеет $||u||^2$?
+	\end{enumerate}
+
+	{\large \textbf{Задача 4.}} Случайная величина $X$ принимает значение $1$ с вероятностью $p$ и значение $0$ с вероятностью $(1-p)$.
+	\begin{enumerate}
+		\item Постройте график зависимости $H(p)$ от $p$.
+		\item При каком $p$ энтропия будет максимальна? Поясните полученный результат.
+	\end{enumerate}
+
+	{\large \textbf{Задача 5.}} Выведите формулы для шагов EM-алгоритма для задачи разделения смеси распределений с тремя кластерами.
+	
+\end{document}
