@@ -1,0 +1,305 @@
+\documentclass[10pt, a4paper]{extarticle}
+
+%% Язык
+\usepackage{cmap} % Поиск в PDF
+\usepackage{mathtext} % Кириллица в формулах
+\usepackage[T2A]{fontenc} % Кодировка
+\usepackage[utf8]{inputenc} % Кодировка
+\usepackage[english,russian]{babel} % Локализация, переносы
+
+%% Шрифты
+
+% Serif
+%\usepackage{euscript} % Шрифт Евклид
+%\usepackage{mathrsfs} % Шрифт для математики
+\usepackage{libertinus}
+
+% Sans-serif
+%\renewcommand{\rmdefault}{cmss}
+%\renewcommand{\ttdefault}{cmss}
+%\usepackage{sfmath}
+
+% Настройки для xelatex
+%\usepackage{polyglossia} % Для выбора языка в xelatex
+%\setmainlanguage{russian}
+%\setotherlanguages{english}
+% Ligatures=TeX is on by default
+% https://tex.stackexchange.com/questions/323542/
+%\setmainfont[Ligatures=TeX]{Cantarell}
+%\newfontfamily{\cyrillicfonttt}{Times New Roman}
+%\newfontfamily\cyrillicfont{Cantarell}[Script=Cyrillic]
+%\setsansfont[Ligatures=TeX]{Cantarell}
+%\newfontfamily\cyrillicfontsf{Cantarell}[Script=Cyrillic]
+%\setmonofont{Courier New}
+%\newfontfamily\cyrillicfonttt{Courier New}[Script=Cyrillic]
+
+%% Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{icomma}
+
+\newtheorem{theor}{Теорема}
+\newtheorem{defn}{Определение}
+
+% Операторы
+\DeclareMathOperator*\plim{plim}
+\DeclareMathOperator{\sgn}{sign}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\amn}{arg\,min}
+\DeclareMathOperator*{\amx}{arg\,max}
+\DeclareMathOperator{\cov}{Cov}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Corr}{Corr}
+\DeclareMathOperator{\pCorr}{pCorr}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\let\P\relax
+\DeclareMathOperator{\P}{\mathbb{P}}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+% Распределения
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cBinom}{\mathcal{Binom}}
+\newcommand{\cPois}{\mathcal{Pois}}
+\newcommand{\cBeta}{\mathcal{Beta}}
+\newcommand{\cGamma}{\mathcal{Gamma}}
+
+% Множества
+\def \R{\mathbb{R}}
+\def \N{\mathbb{N}}
+\def \Z{\mathbb{Z}}
+
+% Другое
+\newcommand{\dx}[1]{\,\mathrm{d}#1} % Для интеграла: маленький отступ и прямая d
+\newcommand{\ind}[1]{\mathbbm{1}_{\{#1\}}} % Индикатор события
+\newcommand{\iid}{\mathrel{\stackrel{\rm i.\,i.\,d.}\sim}}
+\newcommand{\const}{\mathrm{const}}
+
+%% Изображения
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{physics}
+\usepackage{wrapfig} % Обтекание рисунков и таблиц текстом
+\usepackage{tikz}
+
+%% Таблицы
+\usepackage{array, tabularx, tabulary, booktabs}
+\usepackage{longtable}  % Длинные таблицы
+\usepackage{multirow} % Слияние строк в таблице
+
+%% Cписки
+\usepackage{multicol}
+\usepackage{enumitem}
+
+%% Гиперссылки
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{8b00ff}
+\hypersetup{colorlinks = true,
+			linkcolor = linkcolor,
+			urlcolor = linkcolor,
+			citecolor = linkcolor}
+
+%% Выравнивание
+\setlength{\parskip}{0.5em} % Расстояние между абзацами
+\usepackage{geometry} % Поля
+\geometry{
+	a4paper,
+	left=20mm,
+	top=20mm,
+	right=20mm}
+\setlength{\parindent}{0cm} % Отступ (красная строка)
+\linespread{1.0} % Интерлиньяж
+\usepackage[many]{tcolorbox}  
+
+%% Оформление
+
+\newtcolorbox{rulesbox}[1]{%
+	tikznode boxed title,
+	enhanced,
+	arc=0mm,
+	interior style={white},
+	attach boxed title to top center= {yshift=-\tcboxedtitleheight/2},
+	fonttitle=\bfseries,
+	colbacktitle=white,coltitle=black,
+	boxed title style={size=normal,colframe=white,boxrule=0pt},
+	title={#1}}
+
+% Красивый серый фон
+\usepackage{framed} 
+\definecolor{shadecolor}{gray}{0.9}
+
+% Код
+\newcommand{\code}[1]{{\tt #1}}
+
+% Колонтитулы
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{}
+\fancyhead[R]{\thepage}
+
+% Разделы и подразделы
+\usepackage[sf, sl, outermarks]{titlesec}
+\titleformat{\section}{\Large\bfseries\sffamily}{\thesection}{0.5em}{}
+\titleformat{\subsection}{\large\sffamily}{\thesubsection}{0.5em}{}
+
+% Содержание
+%\usepackage{tocloft}
+%\renewcommand{\cftsecfont}{\hspace{4.5em}\normalfont}
+%\renewcommand{\cftsubsecfont}{\hspace{5em}\normalfont}
+%\renewcommand{\cftsecpagefont}{\normalfont\hfill}
+%\renewcommand{\cfttoctitlefont}{\large\normalfont\hfill}
+%\renewcommand{\cftaftertoctitle}{\hfill}
+%\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+%\renewcommand{\cftsecafterpnum}{\hspace*{5.5em}\hfill}
+%\renewcommand{\cftsubsecafterpnum}{\hspace*{5.5em}\hfill}
+%\renewcommand{\cftsecaftersnum}{.}
+%\renewcommand{\cftsubsecaftersnum}{.}
+
+%% Комментарии
+\usepackage{comment}
+
+%% To-do
+\usepackage{todonotes}
+
+%% Литература
+\usepackage[backend = biber,
+			bibencoding = utf8, 
+			sorting = nty, 
+			maxcitenames = 4,
+			style = numeric-verb]{biblatex}
+\addbibresource{lit.bib}
+\usepackage{csquotes}
+
+%% Заголовок
+\title{{\normalsize Прикладная статистика в машинном обучении} \\ \vspace{0.5em} Семинар 7}
+\author{\rule{15cm}{0.4pt}}
+
+
+
+
+\begin{document}
+	
+	\maketitle
+
+	{\Large \textbf{Задача 1.} Теорема Хершелла-Максвелла.} 
+	
+	Рассмотрим замкнутую плоскую фигуру внутри которой случайно летают частицы. Обозначим $V = (V_x, V_y)'$ -- вектор скоростей случайно выбранной частицы.
+	
+	Предположим, что
+	\begin{enumerate}
+		\item Распределение вектора $V$ не должно меняться при его повороте на любой угол (то есть не зависит от направления вектора).
+		\item $V_x$ и $V_y$ независимы.
+		\item $\Var(V_x) = \Var(V_y) = 1$.
+		\item $f(v_x, v_y)$ существует и непрерывна.
+	\end{enumerate}
+	
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Найдите координаты вектора $V'$, который получается поворотом вектора $V$ на $90^{\circ}$ против часовой стрелки.
+		\item Докажите, что распределения $V_x$, $V_y$ и $-V_y$ совпадают.
+		\item По предположению 3 понятно, что $\Var(V_x) = \Var(V_y) = 1$. Покажите, что $\E(V_x) = \E(V_y) = 0$.
+		\item Докажите, что совместная функция плотности $f_V(v_x, v_y)$ представима в виде
+		\[
+		f_V(v_x, v_y) = h(v_x^2 + v_y^2),
+		\]
+		где $h$ -- некоторая функция. Сделайте вывод из этого утверждения.
+		\item Покажите, что совместная функция плотности $f_V(v_x, v_y)$ представима в виде
+		\[
+		f_V(v_x, v_y) = g(v_x^2)g(v_y^2),
+		\]
+		где $g$ -- некоторая функция.
+		\item Докажите, что выражение $h'(t)/h(t)$ равно константе.
+		\item Найдите функцию $h(t)$ с точностью до константы.
+		\item Выпишите $f_V(v_x, v_y)$ с точностью до константы.
+	\end{enumerate}
+	\vspace{1em}
+	
+	{\Large \textbf{Задача 2.} Независимость длин проекций.}
+	
+	Пусть вектор $u \in \R^3$ имеет многомерное стандартное нормальное распределение.
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Найдите проекцию вектора $u$ на подпространство $V = \{(x_1, x_2, x_3) \text{ }| \text{ } x_1 = x-2 = x_3\}$.
+		\item Найдите проекцию вектора $u$ на подпространство
+		$W = \{(x_1, x_2, x_3) \text{ }| \text{ } x_2 = 0, x_1 = -x_3\}$.
+		\item Являются ли $V$ и $W$ ортогональными?
+		\item Убедитесь, что $\Vert\hat{u}_V\Vert$ и $\Vert\hat{u}_W\Vert$ независимы.
+	\end{enumerate} 
+	\vspace{1em}
+	
+	{\Large \textbf{Задача 3.} Распределение хи-квадрат.}
+	\begin{theor}
+		Пусть вектор $u \in \R^n$ имеет многомерное стандартное нормальное распределение. Пусть $V \subset \R^n$, $\dim V = k$. Тогда $\Vert\hat{u}_V\Vert^2 \sim \chi^2_k$.
+	\end{theor}
+
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Пусть вектор $u \in \R^3$ имеет многомерное стандартное нормальное распределение. Найдите проекцию и распределение квадрата длины проекции вектора $u$ на подпространство $V = \{(x_1, x_2, x_3 \text{ } | \text{ } x_3 = 2x_1 + x_2)\}$.
+		\item Найдите распределение квадрата длины проекции вектора $u$ на подпространство $V^{\perp}$.
+	\end{enumerate}
+	\vspace{1em}
+
+	{\Large \textbf{Задача 4.} F-распределение.}
+	\begin{defn}
+		Пусть случайные величины $X \sim \chi^2_{a}$, $Y \sim \chi^2_{b}$, и $X$ и $Y$ независимы. Тогда случайная величина $Z$ имеет распределение Фишера с $a$ и $b$ степенями свободы:
+		\[
+		Z = \dfrac{X/a}{Y/b} \sim F_{a, b}.
+		\]
+	\end{defn}
+	
+	Пусть вектор $u \in \R^n$ имеет многомерное стандартное нормальное распределение. Пусть $V$ и $W$ -- ортогональные подпространства в $\R^n$, $\dim V = k$. $\dim W = m$.
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Постройте проекции вектора $u$ на $V$ и $W$. Как распределены квадраты длин этих проекций?
+		\item Постройте проекцию вектора $u$ на $V \cup W$.
+		\item Покажите на рисунке угол, квадрат тангенса которого равен отношению квадратов длин проекций $u$ на $V$ и $W$. Обозначим этот угол как $\alpha$.
+		\item Какое распределение имеет величина
+		\[
+		\dfrac{m}{k}\tan^2 \alpha ?
+		\]
+		\item Поясните идею сравнения прогнозов моделей при помощи $F$-распределения.
+	\end{enumerate}
+	\vspace{1em}
+
+	{\Large \textbf{Задача 5.} Применение F-распределения.}
+	\begin{theor}
+		Пусть имеются UR-модель и R-модель и тестируется гипотеза 
+		\[
+		H_0: \text{Верны и UR- и R-модели}
+		\]
+		против
+		\[
+		H_A: \text{UR-модель верна, а R-модель неверна.}
+		\]
+		Тогда $H_0$ отвергается на уровне значимости $\alpha$, если $F$-статистика
+		\[
+		F = \dfrac{(RSS_{R} - RSS_{UR})/(\text{df}_{R} - \text{df}_{UR})}{RSS_{UR} / \text{df}_{UR}}
+		\]
+		превышает критическое значение $F_{\alpha}$. Здесь $df$ -- число степеней свободы в соответствующей модели, $df = n - k$, где $n$ -- число наблюдений, $k$ -- число регрессоров. 
+	\end{theor}
+	
+	Пусть UR-модель задаётся следующим образом:
+	\[
+	y_i = \beta_0 + \beta_1x_i + \beta_2z_i + u_i.
+	\]
+	Тестируется следующая R-модель:
+	\[
+	y_i = \beta_0 + \beta_1(x_i + z_i) + u_i.
+	\]
+	
+	Предположим, что $u_i \sim \mathcal{N}(0, 1)$ и независимы.
+	
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Постройте подпространства $V_{UR}$ и $V_{R}$ и проекции вектора $y$ на них.
+		\item Покажите $RSS_{UR}$ и $RSS_{R}$. Обозначим угол между ними как $\alpha$.
+		\item Покажите, что $RSS_{R} - RSS_{UR} = \Vert \hat{y}_{UR} - \hat{y}_{R} \Vert^2$.
+		\item Выразите $\tan^2 \alpha$ через $y$,  $\hat{y}_{UR}$, $\hat{y}_{R}$.
+		\item Рассмотрим векторы $y - \hat{y}_{UR}$ и $\hat{y}_{UR} - \hat{y}_{R}$. Найдите размерности подпространств, в которых они лежат. 
+		\item Выпишите $F$-статистику в геометрическом и в классическом смыслах.
+	\end{enumerate}
+	
+\end{document}
