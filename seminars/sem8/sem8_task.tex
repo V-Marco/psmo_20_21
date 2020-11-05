@@ -1,0 +1,295 @@
+\documentclass[10pt, a4paper]{extarticle}
+
+%% Язык
+\usepackage{cmap} % Поиск в PDF
+\usepackage{mathtext} % Кириллица в формулах
+\usepackage[T2A]{fontenc} % Кодировка
+\usepackage[utf8]{inputenc} % Кодировка
+\usepackage[english,russian]{babel} % Локализация, переносы
+
+%% Шрифты
+
+% Serif
+%\usepackage{euscript} % Шрифт Евклид
+%\usepackage{mathrsfs} % Шрифт для математики
+\usepackage{libertinus}
+
+% Sans-serif
+%\renewcommand{\rmdefault}{cmss}
+%\renewcommand{\ttdefault}{cmss}
+%\usepackage{sfmath}
+
+% Настройки для xelatex
+%\usepackage{polyglossia} % Для выбора языка в xelatex
+%\setmainlanguage{russian}
+%\setotherlanguages{english}
+% Ligatures=TeX is on by default
+% https://tex.stackexchange.com/questions/323542/
+%\setmainfont[Ligatures=TeX]{Cantarell}
+%\newfontfamily{\cyrillicfonttt}{Times New Roman}
+%\newfontfamily\cyrillicfont{Cantarell}[Script=Cyrillic]
+%\setsansfont[Ligatures=TeX]{Cantarell}
+%\newfontfamily\cyrillicfontsf{Cantarell}[Script=Cyrillic]
+%\setmonofont{Courier New}
+%\newfontfamily\cyrillicfonttt{Courier New}[Script=Cyrillic]
+
+%% Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{icomma}
+
+\newtheorem{theor}{Теорема}
+\newtheorem{defn}{Определение}
+
+% Операторы
+\DeclareMathOperator*\plim{plim}
+\DeclareMathOperator{\sgn}{sign}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\amn}{arg\,min}
+\DeclareMathOperator*{\amx}{arg\,max}
+\DeclareMathOperator{\cov}{Cov}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Corr}{Corr}
+\DeclareMathOperator{\pCorr}{pCorr}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\let\P\relax
+\DeclareMathOperator{\P}{\mathbb{P}}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+% Распределения
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cBinom}{\mathcal{Binom}}
+\newcommand{\cPois}{\mathcal{Pois}}
+\newcommand{\cBeta}{\mathcal{Beta}}
+\newcommand{\cGamma}{\mathcal{Gamma}}
+
+% Множества
+\def \R{\mathbb{R}}
+\def \N{\mathbb{N}}
+\def \Z{\mathbb{Z}}
+
+% Другое
+\newcommand{\dx}[1]{\,\mathrm{d}#1} % Для интеграла: маленький отступ и прямая d
+\newcommand{\ind}[1]{\mathbbm{1}_{\{#1\}}} % Индикатор события
+\newcommand{\iid}{\mathrel{\stackrel{\rm i.\,i.\,d.}\sim}}
+\newcommand{\const}{\mathrm{const}}
+
+%% Изображения
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{physics}
+\usepackage{wrapfig} % Обтекание рисунков и таблиц текстом
+\usepackage{tikz}
+
+%% Таблицы
+\usepackage{array, tabularx, tabulary, booktabs}
+\usepackage{longtable}  % Длинные таблицы
+\usepackage{multirow} % Слияние строк в таблице
+
+%% Cписки
+\usepackage{multicol}
+\usepackage{enumitem}
+
+%% Гиперссылки
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{8b00ff}
+\hypersetup{colorlinks = true,
+			linkcolor = linkcolor,
+			urlcolor = linkcolor,
+			citecolor = linkcolor}
+
+%% Выравнивание
+\setlength{\parskip}{0.5em} % Расстояние между абзацами
+\usepackage{geometry} % Поля
+\geometry{
+	a4paper,
+	left=20mm,
+	top=20mm,
+	right=20mm}
+\setlength{\parindent}{0cm} % Отступ (красная строка)
+\linespread{1.0} % Интерлиньяж
+\usepackage[many]{tcolorbox}  
+
+%% Оформление
+
+\newtcolorbox{rulesbox}[1]{%
+	tikznode boxed title,
+	enhanced,
+	arc=0mm,
+	interior style={white},
+	attach boxed title to top center= {yshift=-\tcboxedtitleheight/2},
+	fonttitle=\bfseries,
+	colbacktitle=white,coltitle=black,
+	boxed title style={size=normal,colframe=white,boxrule=0pt},
+	title={#1}}
+
+% Красивый серый фон
+\usepackage{framed} 
+\definecolor{shadecolor}{gray}{0.9}
+
+% Код
+\newcommand{\code}[1]{{\tt #1}}
+
+% Колонтитулы
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{}
+\fancyhead[R]{\thepage}
+
+% Разделы и подразделы
+\usepackage[sf, sl, outermarks]{titlesec}
+\titleformat{\section}{\Large\bfseries\sffamily}{\thesection}{0.5em}{}
+\titleformat{\subsection}{\large\sffamily}{\thesubsection}{0.5em}{}
+
+% Содержание
+%\usepackage{tocloft}
+%\renewcommand{\cftsecfont}{\hspace{4.5em}\normalfont}
+%\renewcommand{\cftsubsecfont}{\hspace{5em}\normalfont}
+%\renewcommand{\cftsecpagefont}{\normalfont\hfill}
+%\renewcommand{\cfttoctitlefont}{\large\normalfont\hfill}
+%\renewcommand{\cftaftertoctitle}{\hfill}
+%\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+%\renewcommand{\cftsecafterpnum}{\hspace*{5.5em}\hfill}
+%\renewcommand{\cftsubsecafterpnum}{\hspace*{5.5em}\hfill}
+%\renewcommand{\cftsecaftersnum}{.}
+%\renewcommand{\cftsubsecaftersnum}{.}
+
+%% Комментарии
+\usepackage{comment}
+
+%% To-do
+\usepackage{todonotes}
+
+%% Литература
+\usepackage[backend = biber,
+			bibencoding = utf8, 
+			sorting = nty, 
+			maxcitenames = 4,
+			style = numeric-verb]{biblatex}
+\addbibresource{lit.bib}
+\usepackage{csquotes}
+
+%% Заголовок
+\title{{\normalsize Прикладная статистика в машинном обучении} \\ \vspace{0.5em} Семинар 8}
+\author{\rule{15cm}{0.4pt}}
+
+
+
+
+\begin{document}
+	
+	\maketitle
+
+	{\Large \textbf{Задача 1.} Тестирование гипотез в множественной регрессии.}
+	
+	Линейная регрессионная модель задаётся в следующем виде:
+	\[
+	y_i = \beta_0 + \beta_1x_{1, i} + \beta_2x_{2, i} + u_i.
+	\] 
+	Предположим, что $u \sim \mathcal{N}(0, \sigma^2I)$. Известно, что
+	\[
+	X = \begin{pmatrix}
+		1 & 0 & 0 \\
+		1 & 0 & 0 \\
+		1 & 0 & 0 \\
+		1 & 1 & 0 \\
+		1 & 1 & 1 \\
+	\end{pmatrix},\text{  }
+	y = \begin{pmatrix}
+		1 \\
+		2 \\
+		3 \\
+		4 \\
+		5
+	\end{pmatrix}, \text{ }
+	(X'X)^{-1} = \begin{pmatrix}
+		1/3 & -1/3 & 0 \\
+		-1/3 & 4/3 & -1 \\
+		0 & -1 & 2
+	\end{pmatrix}
+	\]
+	
+	\begin{enumerate}[label = \alph*)]
+		\item Найдите $\hat{\beta_0}$, $\hat{\beta_1}$, $\hat{\beta_2}$.
+		\item Найдите $\hat{y}$.
+		\item Найдите TSS, ESS, RSS и $R^2$.
+		\item Найдите $\hat{\sigma}$.
+		\item Найдите $\widehat{\Var}(\hat{\beta})$.
+		\item Здесь и далее все гипотезы проверяются на уровне значимости 5\%. Проверьте гипотезу $H_0$ против $H_1$, если
+		\[
+		\begin{cases}
+		H_0: \beta_1 = 1, \\
+		H_1: \beta_1 \ne 1.
+		\end{cases}
+		\]
+		\item Проверьте гипотезу $H_0$ против $H_1$, если
+		\[
+		\begin{cases}
+			H_0: \beta_1 = 1, \\
+			H_1: \beta_1 > 1.
+		\end{cases}
+		\]
+		\item Проверьте регрессию на значимость в целом.
+		\item Проверьте гипотезу
+		\[
+		\begin{cases}
+			H_0: \beta_2 = \beta_3, \\
+			H_1: \beta_2 \ne \beta_3.
+		\end{cases}
+		\]
+		\item Постройте $95\%$-ый доверительный интервал для $\beta_1$.
+		\item Пусть $x_{1, 6} = 10$, $x_{2, 6} = 7$. Найдите $\hat{y}_6$.
+		\item Постройте $95\%$-ый доверительный интервал для $\E(y_6 | X_6)$.
+	\end{enumerate}
+	\newpage
+	
+	
+	{\Large \textbf{Задача 2.} Мегаматрица.}
+	
+	Правила работы с многомерными случайными величинами ($y$, $z$ -- случайные векторы, $A$, $B$ -- матрицы констант; считаем, что все размеры подходящие):
+	\begin{enumerate}
+		\item $\E(Ay) = A\E(y)$.
+		\item $\Var(Ay) = A\Var(y)A'$.
+		\item $\Var(y + z) = \Var(y) + \Var(z) + \cov(y, z) + \cov(z, y)$.
+		\item $\cov(Ay, Bz) = A\cov(y, z)B'$.
+	\end{enumerate}
+
+	Рассмотрим линейную модель $y = X\beta + u$, оцениваемую при помощи МНК. Пусть $\E(u) = 0$, $\Var(u) = \sigma^2 I$, число наблюдений равно $n$, число регрессоров, включая константный, равно $k$. 
+
+	Заполните матрицу характеристик элементов МНК:
+	\begin{center}
+	\begin{tabular}{c|ccccc}
+		$\Var(\cdot)$ & $y$ & $\hat{y}$ & $\hat{\beta}$ & $\hat{u}$ & $u$ \\
+		\hline
+		$y$ & $\ldots$ &&&& \\
+		$\hat{y}$ &&$\ldots$&&& \\
+		$\hat{\beta}$ &&&$\ldots$&& \\
+		$\hat{u}$ &&&&$\ldots$& \\
+		$u$ &&&&&$\ldots$ \\
+		\hline
+		$\E(\cdot)$ &&&&& \\
+		\hline
+	\end{tabular}
+\end{center}
+
+	Для каждого элемента укажите размеры.
+
+	\begin{enumerate}[label = \alph*)]
+		\item $\E(y)$
+		\item $\E(\hat{\beta})$
+		\item $\Var(y)$
+		\item $\Var(\hat{\beta})$
+		\item $\cov(\hat{\beta}, \hat{u})$
+		\item $\ldots$
+	\end{enumerate}
+	
+\end{document}
