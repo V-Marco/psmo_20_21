@@ -1,0 +1,355 @@
+\documentclass[10pt, a4paper]{extarticle}
+
+%% Язык
+\usepackage{cmap} % Поиск в PDF
+\usepackage{mathtext} % Кириллица в формулах
+\usepackage[T2A]{fontenc} % Кодировка
+\usepackage[utf8]{inputenc} % Кодировка
+\usepackage[english,russian]{babel} % Локализация, переносы
+
+%% Шрифты
+
+% Serif
+%\usepackage{euscript} % Шрифт Евклид
+%\usepackage{mathrsfs} % Шрифт для математики
+\usepackage{libertinus}
+
+% Sans-serif
+%\renewcommand{\rmdefault}{cmss}
+%\renewcommand{\ttdefault}{cmss}
+%\usepackage{sfmath}
+
+% Настройки для xelatex
+%\usepackage{polyglossia} % Для выбора языка в xelatex
+%\setmainlanguage{russian}
+%\setotherlanguages{english}
+% Ligatures=TeX is on by default
+% https://tex.stackexchange.com/questions/323542/
+%\setmainfont[Ligatures=TeX]{Cantarell}
+%\newfontfamily{\cyrillicfonttt}{Times New Roman}
+%\newfontfamily\cyrillicfont{Cantarell}[Script=Cyrillic]
+%\setsansfont[Ligatures=TeX]{Cantarell}
+%\newfontfamily\cyrillicfontsf{Cantarell}[Script=Cyrillic]
+%\setmonofont{Courier New}
+%\newfontfamily\cyrillicfonttt{Courier New}[Script=Cyrillic]
+
+%% Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{icomma}
+
+% Операторы
+\DeclareMathOperator*\plim{plim}
+\DeclareMathOperator{\sgn}{sign}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\amn}{arg\,min}
+\DeclareMathOperator*{\amx}{arg\,max}
+\DeclareMathOperator{\cov}{Cov}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Corr}{Corr}
+\DeclareMathOperator{\pCorr}{pCorr}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\let\P\relax
+\DeclareMathOperator{\P}{\mathbb{P}}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+% Распределения
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cBinom}{\mathcal{Binom}}
+\newcommand{\cPois}{\mathcal{Pois}}
+\newcommand{\cBeta}{\mathcal{Beta}}
+\newcommand{\cGamma}{\mathcal{Gamma}}
+
+% Множества
+\def \R{\mathbb{R}}
+\def \N{\mathbb{N}}
+\def \Z{\mathbb{Z}}
+
+% Другое
+\newcommand{\dx}[1]{\,\mathrm{d}#1} % Для интеграла: маленький отступ и прямая d
+\newcommand{\ind}[1]{\mathbbm{1}_{\{#1\}}} % Индикатор события
+\newcommand{\iid}{\mathrel{\stackrel{\rm i.\,i.\,d.}\sim}}
+\newcommand{\const}{\mathrm{const}}
+
+%% Изображения
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{physics}
+\usepackage{wrapfig} % Обтекание рисунков и таблиц текстом
+\usepackage{tikz}
+
+%% Таблицы
+\usepackage{array, tabularx, tabulary, booktabs}
+\usepackage{longtable}  % Длинные таблицы
+\usepackage{multirow} % Слияние строк в таблице
+
+%% Cписки
+\usepackage{multicol}
+\usepackage{enumitem}
+
+%% Гиперссылки
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{8b00ff}
+\hypersetup{colorlinks = true,
+			linkcolor = linkcolor,
+			urlcolor = linkcolor,
+			citecolor = linkcolor}
+
+%% Выравнивание
+\setlength{\parskip}{0.5em} % Расстояние между абзацами
+\usepackage{geometry} % Поля
+\geometry{
+	a4paper,
+	left=20mm,
+	top=20mm,
+	right=20mm}
+\setlength{\parindent}{0cm} % Отступ (красная строка)
+\linespread{1.0} % Интерлиньяж
+\usepackage[many]{tcolorbox}  
+
+%% Оформление
+
+\newtcolorbox{rulesbox}[1]{%
+	tikznode boxed title,
+	enhanced,
+	arc=0mm,
+	interior style={white},
+	attach boxed title to top center= {yshift=-\tcboxedtitleheight/2},
+	fonttitle=\bfseries,
+	colbacktitle=white,coltitle=black,
+	boxed title style={size=normal,colframe=white,boxrule=0pt},
+	title={#1}}
+
+% Красивый серый фон
+\usepackage{framed} 
+\definecolor{shadecolor}{gray}{0.9}
+
+% Код
+\newcommand{\code}[1]{{\tt #1}}
+
+% Колонтитулы
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{}
+\fancyhead[R]{\thepage}
+
+% Разделы и подразделы
+\usepackage[sf, sl, outermarks]{titlesec}
+\titleformat{\section}{\Large\bfseries\sffamily}{\thesection}{0.5em}{}
+\titleformat{\subsection}{\large\sffamily}{\thesubsection}{0.5em}{}
+
+% Содержание
+%\usepackage{tocloft}
+%\renewcommand{\cftsecfont}{\hspace{4.5em}\normalfont}
+%\renewcommand{\cftsubsecfont}{\hspace{5em}\normalfont}
+%\renewcommand{\cftsecpagefont}{\normalfont\hfill}
+%\renewcommand{\cfttoctitlefont}{\large\normalfont\hfill}
+%\renewcommand{\cftaftertoctitle}{\hfill}
+%\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+%\renewcommand{\cftsecafterpnum}{\hspace*{5.5em}\hfill}
+%\renewcommand{\cftsubsecafterpnum}{\hspace*{5.5em}\hfill}
+%\renewcommand{\cftsecaftersnum}{.}
+%\renewcommand{\cftsubsecaftersnum}{.}
+
+%% Комментарии
+\usepackage{comment}
+
+%% To-do
+\usepackage{todonotes}
+
+%% Литература
+\usepackage[backend = biber,
+			bibencoding = utf8, 
+			sorting = nty, 
+			maxcitenames = 4,
+			style = numeric-verb]{biblatex}
+\addbibresource{lit.bib}
+\usepackage{csquotes}
+
+%% Заголовок
+\title{{\normalsize Прикладная статистика в машинном обучении} \\ \vspace{0.5em} Задачи для подготовки к квизу \#3}
+\author{\rule{15cm}{0.4pt}}
+
+
+
+
+\begin{document}
+	
+	\maketitle
+	
+	\begin{rulesbox}{Пояснение}
+		Квиз будет состоять из трёх заданий: одно на проверку гипотез (первые две задачи ниже), одно на расчёт характеристик элементов МНК (задача 3), одно на гетероскедастичность (последние две задачи). В каждое задание войдут какие-то из пунктов приведённых ниже задач с учётом времени написания в 30 минут. Обратные матрицы и прочие вещи, которые долго считать, а также критические значения для проверки гипотез, будут даны (в задачах ниже они приведены не всегда, но на квизе будут). Пользоваться ничем нельзя. 
+	\end{rulesbox}
+	\vspace{1em}
+
+	{\Large \textbf{Задача 1.}}
+	
+	Рассмотрим модель $y_i = \beta_0 + \beta_1X_{1i} + \beta_2X_{2i} + \beta_3X_{3i} + \beta_4X_{4i} + u_i$, которая оценивается по 3 тысячам наблюдений при помощи МНК. Оценённая модель имеет следующий вид:
+	\begin{align*}
+		\hat{y}_i = \underset{(1.2)}{3.04} + \underset{(0.12)}{17.1}X_{1i} - \underset{(2.7)}{8}X_{2i} + \underset{(0.24)}{0.25}X_{3i} + \underset{(0.12)}{2.99}X_{4i}.
+	\end{align*}
+	
+	В скобках указаны стандартные ошибки оценок коэффициентов. Будем считать, что все предпосылки теоремы Гаусса-Маркова выполнены, и $u \sim \mathcal{N}(0, \sigma^2I)$.
+	
+	\begin{enumerate}[label=\alph*)]
+		\item Проверьте каждый коэффициент на значимость на 5\% уровне.
+		\item Проверьте гипотезу
+		\[
+		\begin{cases}
+			H_0: \beta_1 = 15, \\
+			H_1: \beta_1 \ne 15
+		\end{cases}
+		\]
+		на уровне значимости 5\%.
+		\item Проверьте гипотезу
+		\[
+		\begin{cases}
+			H_0: \beta_2 = -10, \\
+			H_1: \beta_2 > -10
+		\end{cases}
+		\]
+		на уровне значимости 5\%.
+		\item Постройте 95\%-ый доверительный интервал для $\beta_4$. 
+		\item Найдите $\hat{y}_{3001} | X_1 = X_2 = X_4 = 0, X_3 = 4$. 
+		\item Постройте 95\%-ый доверительный интервал для $\E(y_{3001} | X_1 = X_2 = X_4 = 0, X_3 = 4)$.
+	\end{enumerate}
+	\vspace{1em}
+	\newpage
+
+	{\Large \textbf{Задача 2.}}
+	
+	Рассмотрим модель $y_i = \beta_0 + \beta_1x_{1i} + \beta_2x_{2i} + u_i$, оцениваемую при помощи МНК. Предположим, что все предпосылки теоремы Гаусса-Маркова выполнены, и $u \sim \mathcal{N}(0, \sigma^2I)$. Модель оценили на следующих данных:
+	\[
+	X = \begin{bmatrix}
+		1 & 2 & 30 \\
+		1 & 5 & 20 \\
+		1 & 2 & 20 \\
+		1 & 5 & 30 \\
+	\end{bmatrix},
+	y = \begin{bmatrix}
+		10 \\
+		5 \\
+		10 \\
+		1
+	\end{bmatrix}.
+	\]
+	
+	Оказалось, что $\hat{\beta} = \begin{pmatrix}
+		9.25 & -1.5 & 0.05
+	\end{pmatrix}'$.
+
+	\begin{enumerate}[label=\alph*)]
+		\item Проверьте регрессию на значимость в целом на уровне значимости 5\%.
+		\item Проверьте гипотезу
+		\[
+		\begin{cases}
+			H_0: \beta_1 = \beta_2, \\
+			H_1: \beta_1 \ne \beta_2
+		\end{cases}
+		\]
+		на уровне значимости 5\%.
+	\end{enumerate}
+	\vspace{1em}
+	
+	{\Large \textbf{Задача 3.}}
+	
+	Рассмотрим линейную модель $y = X\beta + u$, оцениваемую при помощи МНК. Пусть $\E(u) = 0$, $\Var(u) = \sigma^2 I$, число наблюдений равно $n$, число регрессоров, включая константный, равно $k$. 
+	
+	На семинаре мы начали заполнять матрицу характеристик элементов МНК:
+	\begin{center}
+		\begin{tabular}{c|ccccc}
+			$\Var(\cdot)$ & $y$ & $\hat{y}$ & $\hat{\beta}$ & $\hat{u}$ & $u$ \\
+			\hline
+			$y$ & $\underset{n \times n}{\sigma^2I}$ &&&& \\
+			$\hat{y}$ &&$\ldots$&&& \\
+			$\hat{\beta}$ &&&$\underset{k\times k}{(X'X)^{-1}\sigma^2}$& $\underset{k \times n}{0}$& \\
+			$\hat{u}$ &&&&$\ldots$& \\
+			$u$ &&&&&$\ldots$ \\
+			\hline
+			$\E(\cdot)$ & $\underset{n\times1}{X\beta}$&&$\underset{k \times 1}{\beta}$&& \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	Закончите заполнение матрицы. На квизе может быть любой элемент этой матрицы. Для каждого элемента укажите размеры.
+	\vspace{1em}
+	
+	{\Large \textbf{Задача 4.}}
+	
+	Рассмотрим модель $y = X\beta + u$, оцениваемую при помощи МНК по 150 наблюдениям. Известно, что
+	\[
+	X = \begin{bmatrix}
+	1 & 4 & 1 \\
+	1 & 9 & 3 \\
+	1 & 1 & 1
+	\end{bmatrix},
+	X'X = \begin{bmatrix}
+		3 & 14 & 5 \\
+		14 & 98 & 32 \\
+		5 & 32 & 11
+	\end{bmatrix},
+	(X'X)^{-1} = \begin{bmatrix}
+		1.5 & 0.17 & -1.17 \\
+		0.17 & 0.22 & -0.72 \\
+		-1.16 & -0.72 & 2.72
+	\end{bmatrix},
+	y = \begin{bmatrix}
+		1 \\
+		2 \\
+		3 \\
+	\end{bmatrix}
+	\]
+	
+	Также известно, что $\Var(u) = \sigma^2A$, где $A = \mathrm{diag}(3, 4, 5)$. Все остальные предпосылки теоремы Гаусса-Маркова выполнены.
+	
+	\textit{\textbf{Замечание:}} можно оставить выражения в матрицах, цель задания -- разобраться где какая формула, как она получается и что куда подставлять.
+	
+	\begin{enumerate}[label = \alph*)]
+		\item Скорректируйте гетероскедастичность в модели и выпишите формулу для оценок скорректированной модели.
+		\item Выведите выражение для оценки ковариационной матрицы оценок МНК и найдите её в числах.
+		\item Выведите выражение для оценки ковариационной матрицы оценок в скорректированной модели и найдите её в числах.
+	\end{enumerate}
+	\vspace{1em}
+
+	{\Large \textbf{Задача 5.}}
+	
+	Рассмотрим модель парной регрессии
+	\[
+	y_i = \beta_0 + \beta_1x_i + u_i,
+	\]
+	оцениваемую при помощи МНК. Пусть известно, что 
+	
+	\begin{center}
+	\begin{tabular}{c|c}
+		$y_i$ & $x_i$ \\
+		\hline
+		1 & 1 \\
+		2 & 1 \\
+		1 & 4 \\
+		3 & 2
+	\end{tabular}
+	\end{center}
+
+	\[
+	(X'X)^{-1} = \begin{bmatrix}
+		0.92 & -0.33 \\
+		-0.33 & 0.17
+	\end{bmatrix}
+	\]
+
+	\begin{enumerate}[label = \alph*)]
+		\item Найдите $\hat{\beta}_{OLS}$.		
+		\item Постройте 95\%-ый доверительный интервал для $\hat{\beta}_0$, используя стандартные ошибки $HC_0$.
+		\item Постройте 95\%-ый доверительный интервал для $\hat{\beta}_1$, используя стандартные ошибки $HC_3$.
+	\end{enumerate}
+	
+\end{document}
