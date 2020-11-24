@@ -1,0 +1,252 @@
+\documentclass[10pt, a4paper]{extarticle}
+
+%% Язык
+\usepackage{cmap} % Поиск в PDF
+\usepackage{mathtext} % Кириллица в формулах
+\usepackage[T2A]{fontenc} % Кодировка
+\usepackage[utf8]{inputenc} % Кодировка
+\usepackage[english,russian]{babel} % Локализация, переносы
+
+%% Шрифты
+
+% Serif
+%\usepackage{euscript} % Шрифт Евклид
+%\usepackage{mathrsfs} % Шрифт для математики
+\usepackage{libertinus}
+
+% Sans-serif
+%\renewcommand{\rmdefault}{cmss}
+%\renewcommand{\ttdefault}{cmss}
+%\usepackage{sfmath}
+
+% Настройки для xelatex
+%\usepackage{polyglossia} % Для выбора языка в xelatex
+%\setmainlanguage{russian}
+%\setotherlanguages{english}
+% Ligatures=TeX is on by default
+% https://tex.stackexchange.com/questions/323542/
+%\setmainfont[Ligatures=TeX]{Cantarell}
+%\newfontfamily{\cyrillicfonttt}{Times New Roman}
+%\newfontfamily\cyrillicfont{Cantarell}[Script=Cyrillic]
+%\setsansfont[Ligatures=TeX]{Cantarell}
+%\newfontfamily\cyrillicfontsf{Cantarell}[Script=Cyrillic]
+%\setmonofont{Courier New}
+%\newfontfamily\cyrillicfonttt{Courier New}[Script=Cyrillic]
+
+%% Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{icomma}
+
+\newtheorem{theor}{Теорема}
+\newtheorem{defn}{Определение}
+
+% Операторы
+\DeclareMathOperator*\plim{plim}
+\DeclareMathOperator{\sgn}{sign}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\amn}{arg\,min}
+\DeclareMathOperator*{\amx}{arg\,max}
+\DeclareMathOperator{\cov}{Cov}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Corr}{Corr}
+\DeclareMathOperator{\pCorr}{pCorr}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\let\P\relax
+\DeclareMathOperator{\P}{\mathbb{P}}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+% Распределения
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cBinom}{\mathcal{Binom}}
+\newcommand{\cPois}{\mathcal{Pois}}
+\newcommand{\cBeta}{\mathcal{Beta}}
+\newcommand{\cGamma}{\mathcal{Gamma}}
+
+% Множества
+\def \R{\mathbb{R}}
+\def \N{\mathbb{N}}
+\def \Z{\mathbb{Z}}
+
+% Другое
+\newcommand{\dx}[1]{\,\mathrm{d}#1} % Для интеграла: маленький отступ и прямая d
+\newcommand{\ind}[1]{\mathbbm{1}_{\{#1\}}} % Индикатор события
+\newcommand{\iid}{\mathrel{\stackrel{\rm i.\,i.\,d.}\sim}}
+\newcommand{\const}{\mathrm{const}}
+
+%% Изображения
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{physics}
+\usepackage{wrapfig} % Обтекание рисунков и таблиц текстом
+\usepackage{tikz}
+
+%% Таблицы
+\usepackage{array, tabularx, tabulary, booktabs}
+\usepackage{longtable}  % Длинные таблицы
+\usepackage{multirow} % Слияние строк в таблице
+
+%% Cписки
+\usepackage{multicol}
+\usepackage{enumitem}
+
+%% Гиперссылки
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{8b00ff}
+\hypersetup{colorlinks = true,
+			linkcolor = linkcolor,
+			urlcolor = linkcolor,
+			citecolor = linkcolor}
+
+%% Выравнивание
+\setlength{\parskip}{0.5em} % Расстояние между абзацами
+\usepackage{geometry} % Поля
+\geometry{
+	a4paper,
+	left=20mm,
+	top=20mm,
+	right=20mm}
+\setlength{\parindent}{0cm} % Отступ (красная строка)
+\linespread{1.0} % Интерлиньяж
+\usepackage[many]{tcolorbox}  
+
+%% Оформление
+
+\newtcolorbox{rulesbox}[1]{%
+	tikznode boxed title,
+	enhanced,
+	arc=0mm,
+	interior style={white},
+	attach boxed title to top center= {yshift=-\tcboxedtitleheight/2},
+	fonttitle=\bfseries,
+	colbacktitle=white,coltitle=black,
+	boxed title style={size=normal,colframe=white,boxrule=0pt},
+	title={#1}}
+
+% Красивый серый фон
+\usepackage{framed} 
+\definecolor{shadecolor}{gray}{0.9}
+
+% Код
+\newcommand{\code}[1]{{\tt #1}}
+
+% Колонтитулы
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{}
+\fancyhead[R]{\thepage}
+
+% Разделы и подразделы
+\usepackage[sf, sl, outermarks]{titlesec}
+\titleformat{\section}{\Large\bfseries\sffamily}{\thesection}{0.5em}{}
+\titleformat{\subsection}{\large\sffamily}{\thesubsection}{0.5em}{}
+
+% Содержание
+%\usepackage{tocloft}
+%\renewcommand{\cftsecfont}{\hspace{4.5em}\normalfont}
+%\renewcommand{\cftsubsecfont}{\hspace{5em}\normalfont}
+%\renewcommand{\cftsecpagefont}{\normalfont\hfill}
+%\renewcommand{\cfttoctitlefont}{\large\normalfont\hfill}
+%\renewcommand{\cftaftertoctitle}{\hfill}
+%\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+%\renewcommand{\cftsecafterpnum}{\hspace*{5.5em}\hfill}
+%\renewcommand{\cftsubsecafterpnum}{\hspace*{5.5em}\hfill}
+%\renewcommand{\cftsecaftersnum}{.}
+%\renewcommand{\cftsubsecaftersnum}{.}
+
+%% Комментарии
+\usepackage{comment}
+
+%% To-do
+\usepackage{todonotes}
+
+%% Литература
+\usepackage[backend = biber,
+			bibencoding = utf8, 
+			sorting = nty, 
+			maxcitenames = 4,
+			style = numeric-verb]{biblatex}
+\addbibresource{lit.bib}
+\usepackage{csquotes}
+
+%% Заголовок
+\title{{\normalsize Прикладная статистика в машинном обучении} \\ \vspace{0.5em} Семинар 11}
+\author{\rule{15cm}{0.4pt}}
+
+
+
+
+\begin{document}
+	
+	\maketitle
+
+	{\Large \textbf{Задача 1.} Теорема Гаусса-Маркова для стохастических регрессоров.}
+	\vspace{1em}
+	
+	Если:
+	\begin{enumerate}
+		\item Модель задана как $y = X\beta + u$, и при помощи МНК оценивается линейная регрессия $\hat{y} = X\hat{\beta}$.
+		\item $\beta$ -- вектор констант.
+		\item $\P(\{\text{у матрицы $X$ есть линейно зависимые столбцы}\}) = 0$.
+		\item $\E(u | X) = 0$, $\Var(u | X) = \sigma^2 I$,
+	\end{enumerate}
+	то
+	\begin{enumerate}
+		\item $\hat{\beta}$ существуют и единственны с вероятностью один.
+		\item $\hat{\beta}$ линейны по $y$.
+		\item $\E(\hat{\beta} | X) = \beta$.
+		\item $\hat{\beta}$ эффективны в классе линейных по $y$ и условно несмещённых оценок. 
+	\end{enumerate}
+	
+	\begin{enumerate}[label = \alph*)]
+		\item Покажите, что если предпосылки ТГМ со стохастическими регрессорами выполнены, то оценки $\hat{\beta}$ являются состоятельными.
+		\item При нарушении какого условия ТГМ оценки МНК перестанут быть состоятельными? 
+	\end{enumerate}
+	\vspace{1em}
+
+	{\Large \textbf{Задача 2.} Причины эндогенности.}
+	
+	\begin{enumerate}[label=\alph*)]
+		\item Рассмотрим модель $y_i = \beta x_i + u_i$ со стохастическими регрессорами, в которой выполнены все предпосылки ТГМ, кроме $\E(u_i | X) \ne 0$ по какой-то причине. Покажите, что если оценивается регрессия $\hat{y}_i = \hat{\beta}x_i$ при помощи МНК, то $\hat{\beta}$ не являются состоятельными.
+		\item \textit{(Пропущенные переменные)} Рассмотрим модель $y_i = \beta x_i + \gamma z_i + u_i$ со стохастическими переменными, в которой выполнены все предпосылки ТГМ. Исследователь Дорофей оценивает регрессию $\hat{y}_i = \hat{\beta}x_i$ при помощи МНК. Покажите, что оценки в регрессии Дорофея не являются состоятельными.
+		\item \textit{(Ошибки измерения)} Отчаянный исследователь Афанасий пытается предсказать результаты контрольной по статистике при помощи модели со стохастическими регрессорами $y_i = \beta x_i + u_i$, где $x_i$ -- количество съеденных бургеров известной фирмы. Для сбора данных производится опрос студентов. Афанасий догадывается, что полученные данные отражают не настоящие $x_i$, а строятся следующим образом:
+		\[
+		x_i^* = x_i + \alpha + v_i,
+		\]
+		где $\alpha$ -- показатель русской народной скромности, а $v_i$ -- случайная величина, отражающая несовершенство человеческой памяти. Предположим, что $\alpha$ -- константа, а $\E(x_i) = \mu_x$, $\E(u_i) = 0$, $\E(v_i) = 0$, $\Var(x_i) = \sigma^2_x$, $\Var(u_i) = \sigma^2_u$, $\Var(v_i) = \sigma^2_v$. Предположим, что $x_i$ не коррелирует с $v_i$ и $u_i$, а все $u_i$ и $v_i$ не коррелируют друг с другом и между собой.
+		
+		Афанасий оценивает регрессию $\hat{y}_i = \hat{\beta} x^*_i$ при помощи МНК по собранным данным. Покажите, что $\hat{\beta}$ не является состоятельной. Как смещение зависит от $\alpha$?
+		
+	\end{enumerate}
+	\vspace{1em}
+	
+	{\Large \textbf{Задача 3.} Двухшаговый МНК.}
+	
+	Переменные $z_i$ называются инструментальными, если 
+	\begin{enumerate}
+		\item \textit{(релевантность)} $\E(x_iz_i) \ne 0 \sim \cov(x_i, z_i) \ne 0 \sim \plim_{n \to \infty} Z'_jX \ne 0$.
+		\item \textit{(валидность)} $\E(u_iz_i) = 0 \sim \cov(u_i, z_i) = 0 \sim \plim_{n \to \infty} Z'_ju = 0$.
+	\end{enumerate}
+
+	Если подобрали подходящие инструменты, то можно применить двухшаговый МНК:
+	\begin{description}
+		\item[Шаг 1.] Оценить регрессию $X$ на $Z$, получить прогнозы $\hat{X}$.
+		\item[Шаг 2.] Оценить регрессию $y$ на $\hat{X}$, получить оценки $\hat{\beta}_{2SLS}$.
+	\end{description}
+
+	\begin{enumerate}[label=\alph*)]
+		\item Выведите оценки двухшагового МНК в общем случае ($Z$ имеет размеры $n\times m$, $m \ge k$).
+		\item Выведите оценки метода инструментальных переменных ($Z$ имеет размеры $n\times m$, $m = k$).
+		\item Покажите, что оценки метода инструментальных переменных являются состоятельными.
+	\end{enumerate}
+	
+\end{document}
