@@ -1,0 +1,248 @@
+\documentclass[10pt, a4paper]{extarticle}
+
+%% Язык
+\usepackage{cmap} % Поиск в PDF
+\usepackage{mathtext} % Кириллица в формулах
+\usepackage[T2A]{fontenc} % Кодировка
+\usepackage[utf8]{inputenc} % Кодировка
+\usepackage[english,russian]{babel} % Локализация, переносы
+
+%% Шрифты
+
+% Serif
+%\usepackage{euscript} % Шрифт Евклид
+%\usepackage{mathrsfs} % Шрифт для математики
+\usepackage{libertinus}
+
+% Sans-serif
+%\renewcommand{\rmdefault}{cmss}
+%\renewcommand{\ttdefault}{cmss}
+%\usepackage{sfmath}
+
+% Настройки для xelatex
+%\usepackage{polyglossia} % Для выбора языка в xelatex
+%\setmainlanguage{russian}
+%\setotherlanguages{english}
+% Ligatures=TeX is on by default
+% https://tex.stackexchange.com/questions/323542/
+%\setmainfont[Ligatures=TeX]{Cantarell}
+%\newfontfamily{\cyrillicfonttt}{Times New Roman}
+%\newfontfamily\cyrillicfont{Cantarell}[Script=Cyrillic]
+%\setsansfont[Ligatures=TeX]{Cantarell}
+%\newfontfamily\cyrillicfontsf{Cantarell}[Script=Cyrillic]
+%\setmonofont{Courier New}
+%\newfontfamily\cyrillicfonttt{Courier New}[Script=Cyrillic]
+
+%% Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{icomma}
+
+\newtheorem{theor}{Теорема}
+\newtheorem{defn}{Определение}
+
+% Операторы
+\DeclareMathOperator*\plim{plim}
+\DeclareMathOperator{\sgn}{sign}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\amn}{arg\,min}
+\DeclareMathOperator*{\amx}{arg\,max}
+\DeclareMathOperator{\cov}{Cov}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Corr}{Corr}
+\DeclareMathOperator{\pCorr}{pCorr}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\let\P\relax
+\DeclareMathOperator{\P}{\mathbb{P}}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+% Распределения
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cBinom}{\mathcal{Binom}}
+\newcommand{\cPois}{\mathcal{Pois}}
+\newcommand{\cBeta}{\mathcal{Beta}}
+\newcommand{\cGamma}{\mathcal{Gamma}}
+
+% Множества
+\def \R{\mathbb{R}}
+\def \N{\mathbb{N}}
+\def \Z{\mathbb{Z}}
+
+% Другое
+\newcommand{\dx}[1]{\,\mathrm{d}#1} % Для интеграла: маленький отступ и прямая d
+\newcommand{\ind}[1]{\mathbbm{1}_{\{#1\}}} % Индикатор события
+\newcommand{\iid}{\mathrel{\stackrel{\rm i.\,i.\,d.}\sim}}
+\newcommand{\const}{\mathrm{const}}
+
+%% Изображения
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{physics}
+\usepackage{wrapfig} % Обтекание рисунков и таблиц текстом
+\usepackage{tikz}
+
+%% Таблицы
+\usepackage{array, tabularx, tabulary, booktabs}
+\usepackage{longtable}  % Длинные таблицы
+\usepackage{multirow} % Слияние строк в таблице
+
+%% Cписки
+\usepackage{multicol}
+\usepackage{enumitem}
+
+%% Гиперссылки
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{8b00ff}
+\hypersetup{colorlinks = true,
+			linkcolor = linkcolor,
+			urlcolor = linkcolor,
+			citecolor = linkcolor}
+
+%% Выравнивание
+\setlength{\parskip}{0.5em} % Расстояние между абзацами
+\usepackage{geometry} % Поля
+\geometry{
+	a4paper,
+	left=20mm,
+	top=20mm,
+	right=20mm}
+\setlength{\parindent}{0cm} % Отступ (красная строка)
+\linespread{1.0} % Интерлиньяж
+\usepackage[many]{tcolorbox}  
+
+%% Оформление
+
+\newtcolorbox{rulesbox}[1]{%
+	tikznode boxed title,
+	enhanced,
+	arc=0mm,
+	interior style={white},
+	attach boxed title to top center= {yshift=-\tcboxedtitleheight/2},
+	fonttitle=\bfseries,
+	colbacktitle=white,coltitle=black,
+	boxed title style={size=normal,colframe=white,boxrule=0pt},
+	title={#1}}
+
+% Красивый серый фон
+\usepackage{framed} 
+\definecolor{shadecolor}{gray}{0.9}
+
+% Код
+\newcommand{\code}[1]{{\tt #1}}
+
+% Колонтитулы
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{}
+\fancyhead[R]{\thepage}
+
+% Разделы и подразделы
+\usepackage[sf, sl, outermarks]{titlesec}
+\titleformat{\section}{\Large\bfseries\sffamily}{\thesection}{0.5em}{}
+\titleformat{\subsection}{\large\sffamily}{\thesubsection}{0.5em}{}
+
+% Содержание
+%\usepackage{tocloft}
+%\renewcommand{\cftsecfont}{\hspace{4.5em}\normalfont}
+%\renewcommand{\cftsubsecfont}{\hspace{5em}\normalfont}
+%\renewcommand{\cftsecpagefont}{\normalfont\hfill}
+%\renewcommand{\cfttoctitlefont}{\large\normalfont\hfill}
+%\renewcommand{\cftaftertoctitle}{\hfill}
+%\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+%\renewcommand{\cftsecafterpnum}{\hspace*{5.5em}\hfill}
+%\renewcommand{\cftsubsecafterpnum}{\hspace*{5.5em}\hfill}
+%\renewcommand{\cftsecaftersnum}{.}
+%\renewcommand{\cftsubsecaftersnum}{.}
+
+%% Комментарии
+\usepackage{comment}
+
+%% To-do
+\usepackage{todonotes}
+
+%% Литература
+\usepackage[backend = biber,
+			bibencoding = utf8, 
+			sorting = nty, 
+			maxcitenames = 4,
+			style = numeric-verb]{biblatex}
+\addbibresource{lit.bib}
+\usepackage{csquotes}
+
+%% Заголовок
+\title{{\normalsize Прикладная статистика в машинном обучении} \\ \vspace{0.5em} Семинар 13}
+\author{\rule{15cm}{0.4pt}}
+
+
+
+
+\begin{document}
+	
+	\maketitle
+
+	{\Large \textbf{Задача 1.}} 
+	
+	Пусть $X_1$, $\ldots$, $X_n$ -- выборка независимых одинаково распределённых случайных величин, имеющих распределение Бернулли с параметром $p$. Рассмотрим в качестве априорного распределения параметра $p$ равномерное на подходящем интервале, то есть $f(p) = 1$.
+	\begin{enumerate}[label = \alph*)]
+		\item Выпишите апостериорное распределение $p$ с точностью до константы.
+		\item Бета-распределение с параметрами $\alpha$ и $\beta$ задаётся плотностью:
+		\[
+		f(x | \alpha, \beta) = \dfrac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)}x^{\alpha - 1}(1-x)^{\beta - 1}.
+		\]
+		Подберите такие параметры $\alpha$ и $\beta$, чтобы показать, что полученное апостериорное распределение представимо в виде $p|x \sim C\mathrm{Beta}(\alpha, \beta)$, где $C$ -- некоторая константа.
+		\item Восстановите константу $C$.
+		\item Найдите точечную оценку параметра $p$.
+		\item Заметим, что $\bar{p}$ представляется в виде
+		\[
+		\bar{p} = \dfrac{n}{n + 2}\dfrac{s}{n} + \left(1 - \dfrac{n}{n+2}\right)\dfrac{1}{2}.
+		\]
+		Прокомментируйте интуицию такого разложения.
+		\item Запишите формулу расчёта 95\%-го апостериорного доверительного интервала для $p$.
+		\item Теперь предположим, что априорное распределение параметра $p$ -- это Бета-распределение $p \sim \mathrm{Beta}(\alpha, \beta)$. Вычислите апостериорное распределение $p$.
+	\end{enumerate}
+	\vspace{1em}
+	
+	{\Large \textbf{Задача 2.}} 
+	
+	Рассмотрим выборку независимых одинаково распределённых нормальных случайных величин $X_1$, $\ldots$, $X_n$ $\sim \mathcal{N}(\mu, \sigma^2)$. Для простоты будем считать, что $\sigma$ известна. Пусть априорное распределение параметра $\mu$ имеет вид $\mu \sim \mathcal{N}(a, b^2)$.
+	
+	\begin{enumerate}[label = \alph*)]
+		\item Пусть функция правдоподобия строится лишь по наблюдению $X_1$. Выведите примерное апостериорное распределение параметра $\mu$. Является ли априорное распределение сопряжённым?
+		\item Можно показать, что в общем случае апостериорное распределение $\mu$ имеет вид
+		\[
+		\mu | X \sim \mathcal{N}(\bar{\mu}, w^2),
+		\]
+		где $\bar{\mu} = \lambda \bar{X} + (1 - \lambda)a$, $\lambda = \dfrac{1/s^2}{1/s^2 + 1/b^2}$, $s = \sigma / \sqrt{n}$, $1/w^2 = 1/s^2 + 1/b^2$.
+		
+		Что происходит с $\lambda$ и $w/s$ при $n \to \infty$? Выпишите приблизительное апостериорное распределение $\mu$ при $n \to \infty$.
+		\item Постройте 95\% асимптотический байесовский доверительный интервал для $\mu$.
+	\end{enumerate}
+	\vspace{1em}
+
+
+	{\Large \textbf{Задача 3.}}
+	
+	Пусть $X_1$, $\ldots$, $X_n$ -- выборка независимых одинаково распределённых случайных величин из распределения Бернулли с параметром $p$. Апостериорное распределение задаётся как $f(p) = 1$. Пусть $\psi = \log\left(\dfrac{p}{1-p}\right)$. Найдите апостериорную функцию распределения и функцию плотности $\psi$.
+	\vspace{1em}
+	  
+	
+	{\Large \textbf{Задача 4.}}
+	
+	Компания тестирует новый вид удобрений, для чего создаёт контрольную группу размером $n_1$ и тестовую группу размером $n_2$. После проведения эксперимента оказалось, что в контрольной группе лучший рост показали $X_1$ растений, а в тестовой -- $X_2$ растений. Пусть $f(p_1, p_2) = 1$. 
+	
+	\begin{enumerate}[label = \alph*)]
+		\item Выведите апостериорное распределение $f(p_1, p_2 | x_1, x_2)$ с точностью до константы.
+		\item Являются ли $p_1 | x_1$ и $p_2 | x_2$ независимыми?
+		\item Опишите процесс байесовской оценки величины $p_2 - p_1$ через симуляцию.
+	\end{enumerate}
+
+\end{document}
