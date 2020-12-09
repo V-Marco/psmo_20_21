@@ -1,0 +1,254 @@
+\documentclass[10pt, a4paper]{extarticle}
+
+%% Язык
+\usepackage{cmap} % Поиск в PDF
+\usepackage{mathtext} % Кириллица в формулах
+\usepackage[T2A]{fontenc} % Кодировка
+\usepackage[utf8]{inputenc} % Кодировка
+\usepackage[english,russian]{babel} % Локализация, переносы
+
+%% Шрифты
+
+% Serif
+%\usepackage{euscript} % Шрифт Евклид
+%\usepackage{mathrsfs} % Шрифт для математики
+\usepackage{libertinus}
+
+% Sans-serif
+%\renewcommand{\rmdefault}{cmss}
+%\renewcommand{\ttdefault}{cmss}
+%\usepackage{sfmath}
+
+% Настройки для xelatex
+%\usepackage{polyglossia} % Для выбора языка в xelatex
+%\setmainlanguage{russian}
+%\setotherlanguages{english}
+% Ligatures=TeX is on by default
+% https://tex.stackexchange.com/questions/323542/
+%\setmainfont[Ligatures=TeX]{Cantarell}
+%\newfontfamily{\cyrillicfonttt}{Times New Roman}
+%\newfontfamily\cyrillicfont{Cantarell}[Script=Cyrillic]
+%\setsansfont[Ligatures=TeX]{Cantarell}
+%\newfontfamily\cyrillicfontsf{Cantarell}[Script=Cyrillic]
+%\setmonofont{Courier New}
+%\newfontfamily\cyrillicfonttt{Courier New}[Script=Cyrillic]
+
+%% Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{icomma}
+
+% Операторы
+\DeclareMathOperator*\plim{plim}
+\DeclareMathOperator{\sgn}{sign}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\amn}{arg\,min}
+\DeclareMathOperator*{\amx}{arg\,max}
+\DeclareMathOperator{\cov}{Cov}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Corr}{Corr}
+\DeclareMathOperator{\pCorr}{pCorr}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\let\P\relax
+\DeclareMathOperator{\P}{\mathbb{P}}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+% Распределения
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cBinom}{\mathcal{Binom}}
+\newcommand{\cPois}{\mathcal{Pois}}
+\newcommand{\cBeta}{\mathcal{Beta}}
+\newcommand{\cGamma}{\mathcal{Gamma}}
+
+% Множества
+\def \R{\mathbb{R}}
+\def \N{\mathbb{N}}
+\def \Z{\mathbb{Z}}
+
+% Другое
+\newcommand{\dx}[1]{\,\mathrm{d}#1} % Для интеграла: маленький отступ и прямая d
+\newcommand{\ind}[1]{\mathbbm{1}_{\{#1\}}} % Индикатор события
+\newcommand{\iid}{\mathrel{\stackrel{\rm i.\,i.\,d.}\sim}}
+\newcommand{\const}{\mathrm{const}}
+
+%% Изображения
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{physics}
+\usepackage{wrapfig} % Обтекание рисунков и таблиц текстом
+\usepackage{tikz}
+
+%% Таблицы
+\usepackage{array, tabularx, tabulary, booktabs}
+\usepackage{longtable}  % Длинные таблицы
+\usepackage{multirow} % Слияние строк в таблице
+
+%% Cписки
+\usepackage{multicol}
+\usepackage{enumitem}
+
+%% Гиперссылки
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{8b00ff}
+\hypersetup{colorlinks = true,
+			linkcolor = linkcolor,
+			urlcolor = linkcolor,
+			citecolor = linkcolor}
+
+%% Выравнивание
+\setlength{\parskip}{0.5em} % Расстояние между абзацами
+\usepackage{geometry} % Поля
+\geometry{
+	a4paper,
+	left=20mm,
+	top=20mm,
+	right=20mm}
+\setlength{\parindent}{0cm} % Отступ (красная строка)
+\linespread{1.0} % Интерлиньяж
+\usepackage[many]{tcolorbox}  
+
+%% Оформление
+
+\newtcolorbox{rulesbox}[1]{%
+	tikznode boxed title,
+	enhanced,
+	arc=0mm,
+	interior style={white},
+	attach boxed title to top center= {yshift=-\tcboxedtitleheight/2},
+	fonttitle=\bfseries,
+	colbacktitle=white,coltitle=black,
+	boxed title style={size=normal,colframe=white,boxrule=0pt},
+	title={#1}}
+
+% Красивый серый фон
+\usepackage{framed} 
+\definecolor{shadecolor}{gray}{0.9}
+
+% Код
+\newcommand{\code}[1]{{\tt #1}}
+
+% Колонтитулы
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{}
+\fancyhead[R]{\thepage}
+
+% Разделы и подразделы
+\usepackage[sf, sl, outermarks]{titlesec}
+\titleformat{\section}{\Large\bfseries\sffamily}{\thesection}{0.5em}{}
+\titleformat{\subsection}{\large\sffamily}{\thesubsection}{0.5em}{}
+
+% Содержание
+%\usepackage{tocloft}
+%\renewcommand{\cftsecfont}{\hspace{4.5em}\normalfont}
+%\renewcommand{\cftsubsecfont}{\hspace{5em}\normalfont}
+%\renewcommand{\cftsecpagefont}{\normalfont\hfill}
+%\renewcommand{\cfttoctitlefont}{\large\normalfont\hfill}
+%\renewcommand{\cftaftertoctitle}{\hfill}
+%\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+%\renewcommand{\cftsecafterpnum}{\hspace*{5.5em}\hfill}
+%\renewcommand{\cftsubsecafterpnum}{\hspace*{5.5em}\hfill}
+%\renewcommand{\cftsecaftersnum}{.}
+%\renewcommand{\cftsubsecaftersnum}{.}
+
+%% Комментарии
+\usepackage{comment}
+
+%% To-do
+\usepackage{todonotes}
+
+%% Литература
+\usepackage[backend = biber,
+			bibencoding = utf8, 
+			sorting = nty, 
+			maxcitenames = 4,
+			style = numeric-verb]{biblatex}
+\addbibresource{lit.bib}
+\usepackage{csquotes}
+
+%% Заголовок
+\title{{\normalsize Прикладная статистика в машинном обучении} \\\vspace{0.5em} Домашнее задание \#3}
+\author{Дедлайн: 17 декабря, 23:59 МСК}
+\date{\rule{15cm}{0.4pt}}
+
+
+
+
+\begin{document}
+	
+	\maketitle
+	
+	\begin{rulesbox}{Правила игры}
+		\begin{enumerate}
+			\item Домашнее задание оценивается в $10$ баллов.
+			\item Решения принимаются до \textbf{17 декабря 2020 года, 23:59 МСК} включительно.
+			Работы, отправленные после дедлайна, не оцениваются.
+			\item Все решения нужно загрузить в личный репозиторий на \href{https://classroom.github.com/a/Eh3mAJ78}{GitHub Classroom}.
+			\item Обе задачи экспериментальные, и их следует решать в Jupyter Notebook. Однако если вам кажется, что где-то нужно привести длинную теоретическую выкладку, то вы можете написать её от руки и отсканировать. В этом случае соберите все написанные вручную элементы в единый .pdf файл и также загрузите его в репозиторий. 
+			\item Репозиторий должен содержать .ipynb-файл с решениями задач, который должен называться name\_surname\_hw3.ipynb. Если вы дополнительно загружаете .pdf файл с решениями от руки, то назовите его add.pdf
+			 \item Весь код должен быть написан на Python.
+			 \item Разрешается использовать без доказательства любые результаты, встречавшиеся на лекциях или семинарах по курсу, если получение этих результатов не является вопросом задания. 
+			 \item Разрешается использовать любые свободные источники с указанием ссылки на них.
+			 \item Плагиат не допускается.
+			 При обнаружении случаев списывания $0$ за работу выставляется всем участникам нарушения, даже если можно установить, кто у кого списал. 
+		\end{enumerate}
+	\end{rulesbox}
+	
+	\newpage
+
+	{\Large \textbf{Задача 1.} Всё нормально! (5 баллов)}
+	
+	Майло Тэтч исследует выборку независимых одинаково распределённых случайных величин $X_1$, $\ldots$, $X_n$ из нормального $\mathcal{N}(\mu, 1)$ распределения.
+	\begin{enumerate}[label = \alph*)]
+		\item Симулируйте такую выборку при $n = 100$, $\mu = 5$.
+		\item Научный опыт Майло говорит, что $f(\mu)$ непременно равна $1$\footnote{Кажется, что это весьма странное утверждение. Что именно оно означает, мы обсудим на последнем семинаре.}. Найдите апостериорную плотность $f(\mu | X)$ аналитически и постройте её график.
+		\item Майло не хочет хранить апостериорную функцию плотности в явном виде и желает представить апостериорное распределение в виде массива чисел. Выберите любой способ сделать это и получите такой массив (размер массива -- на ваш вкус). Постройте гистограмму полученного массива и визуально оцените, насколько хорошо она приближает аналитическую апостериорную плотность.
+		\item Майло считает, что недостаточно рассматривать только $\mu$: требуется изучить и $\theta = e^{\mu}$. Найдите апостериорную плотность $f(\theta | X)$ аналитически и при помощи симуляций. Для симуляций используйте следующий алгоритм:
+		\begin{enumerate}
+			\item Симулируйте $Q_1$, $\ldots$, $Q_B$ из апостериорного распределения $\mu | X$.
+			\item Рассчитайте $\gamma_i := e^{Q_i}$. Объявите $\gamma_1$, $\ldots$, $\gamma_B$ выборкой независимых одинаково распределённых случайных величин из апостериорного распределения $\theta | X$.
+		\end{enumerate}
+		\item Постройте 95\%-ый байесовский доверительный интервал для $\mu$.
+		\item Постройте 95\%-ый частотный доверительный интервал для $\mu$. 
+	\end{enumerate}
+
+	\begin{flushright}
+		\textit{(По мотивам: Wasserman, All of Statistics)}
+	\end{flushright}
+	\vspace{1em}
+	
+	{\Large \textbf{Задача 2.} Необычная флора (5 баллов)}
+	
+	Оказавшись в Атлантиде, Майло Тэтч изучает местную флору. В частности, ему интересно, как влияют привычные удобрения на рост местного вида папоротников. Майло собирает случайную выборку из 500 папоротников и разделяет её на пять непересекающихся групп по 100 наблюдений в каждой. К четырём из них он применяет удобрения разных видов, а пятая группа объявляется контрольной. Результаты эксперимента приведены в таблице ниже. В первой строке указаны виды применяемых удобрений, а во второй -- число растений, для которых наблюдались улучшения в росте. 
+	
+	\begin{center}
+	\begin{tabular}{lrrrrr}
+		Вид удобрения      & Без удобрения & DAP & MAP & NPK & UAN \\
+		\hline
+		Улучшения в росте  & 42		   & 37  & 17  & 74  & 44 \\
+	\end{tabular}
+	\end{center}
+
+	\begin{enumerate}[label = \alph*)]
+		\item Сформулируйте гипотезы о наличии (отсутствии) эффекта действия каждого удобрения. Проверьте каждую гипотезу на уровне значимости 5\%. Можно считать, что число наблюдений достаточно для применения асимптотических результатов. Для получения оценок используйте метод максимального правдоподобия.
+		\item Проведите процедуру множественного тестирования методом Бонферрони.
+		Изменились ли результаты? 
+		
+		Напоминание: при полученной статистике $z_{obs}$ p-value можно рассчитать как $2\P\{Z \le z_{obs} | H_0\}$ для двустороннего теста в случае симметричного распределения.
+		
+		\item Проведите процедуру множественного тестирования методом Бенджамини-Хохберга. Изменились ли результаты? 
+		\item Сделайте итоговый вывод о наличии эффекта действия каждого удобрения.
+		
+		\item Результаты тестирования удобрения MAP смутили Майло: они никак не согласовывались с его научным опытом. Поэтому для исследования эффекта действия этого удобрения Майло решил использовать байесовский подход. Пусть теперь $p_{MAP}$ -- случайная величина, и Майло уверен, что $p_{MAP} \sim \mathrm{Beta}(\alpha, \beta)$. Найдите какую-нибудь (на ваш выбор) точечную байесовскую оценку параметра $p_{MAP}$. Прокомментируйте, насколько сильно различаются частотная и байесовская оценки и поясните почему.
+	\end{enumerate}
+	
+\end{document}

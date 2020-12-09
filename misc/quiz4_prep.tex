@@ -1,0 +1,294 @@
+\documentclass[10pt, a4paper]{exam}
+
+%% Язык
+\usepackage{cmap} % Поиск в PDF
+\usepackage{mathtext} % Кириллица в формулах
+\usepackage[T2A]{fontenc} % Кодировка
+\usepackage[utf8]{inputenc} % Кодировка
+\usepackage[english,russian]{babel} % Локализация, переносы
+
+%% Шрифты
+
+% Serif
+%\usepackage{euscript} % Шрифт Евклид
+%\usepackage{mathrsfs} % Шрифт для математики
+\usepackage{libertinus}
+
+% Sans-serif
+%\renewcommand{\rmdefault}{cmss}
+%\renewcommand{\ttdefault}{cmss}
+%\usepackage{sfmath}
+
+% Настройки для xelatex
+%\usepackage{polyglossia} % Для выбора языка в xelatex
+%\setmainlanguage{russian}
+%\setotherlanguages{english}
+% Ligatures=TeX is on by default
+% https://tex.stackexchange.com/questions/323542/
+%\setmainfont[Ligatures=TeX]{Cantarell}
+%\newfontfamily{\cyrillicfonttt}{Times New Roman}
+%\newfontfamily\cyrillicfont{Cantarell}[Script=Cyrillic]
+%\setsansfont[Ligatures=TeX]{Cantarell}
+%\newfontfamily\cyrillicfontsf{Cantarell}[Script=Cyrillic]
+%\setmonofont{Courier New}
+%\newfontfamily\cyrillicfonttt{Courier New}[Script=Cyrillic]
+
+%% Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{icomma}
+
+% Операторы
+\DeclareMathOperator*\plim{plim}
+\DeclareMathOperator{\sgn}{sign}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\amn}{arg\,min}
+\DeclareMathOperator*{\amx}{arg\,max}
+\DeclareMathOperator{\cov}{Cov}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Corr}{Corr}
+\DeclareMathOperator{\pCorr}{pCorr}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\let\P\relax
+\DeclareMathOperator{\P}{\mathbb{P}}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+% Распределения
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cBinom}{\mathcal{Binom}}
+\newcommand{\cPois}{\mathcal{Pois}}
+\newcommand{\cBeta}{\mathcal{Beta}}
+\newcommand{\cGamma}{\mathcal{Gamma}}
+
+% Множества
+\def \R{\mathbb{R}}
+\def \N{\mathbb{N}}
+\def \Z{\mathbb{Z}}
+
+% Другое
+\newcommand{\dx}[1]{\,\mathrm{d}#1} % Для интеграла: маленький отступ и прямая d
+\newcommand{\ind}[1]{\mathbbm{1}_{\{#1\}}} % Индикатор события
+\newcommand{\iid}{\mathrel{\stackrel{\rm i.\,i.\,d.}\sim}}
+\newcommand{\const}{\mathrm{const}}
+
+%% Изображения
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{physics}
+\usepackage{wrapfig} % Обтекание рисунков и таблиц текстом
+\usepackage{tikz}
+
+%% Таблицы
+\usepackage{array, tabularx, tabulary, booktabs}
+\usepackage{longtable}  % Длинные таблицы
+\usepackage{multirow} % Слияние строк в таблице
+
+%% Cписки
+\usepackage{multicol}
+\usepackage{enumitem}
+
+%% Гиперссылки
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{8b00ff}
+\hypersetup{colorlinks = true,
+			linkcolor = linkcolor,
+			urlcolor = linkcolor,
+			citecolor = linkcolor}
+
+%% Выравнивание
+\setlength{\parskip}{0.5em} % Расстояние между абзацами
+\usepackage{geometry} % Поля
+\geometry{
+	a4paper,
+	left=20mm,
+	top=20mm,
+	right=20mm}
+\setlength{\parindent}{0cm} % Отступ (красная строка)
+\linespread{1.0} % Интерлиньяж
+\usepackage[many]{tcolorbox}  
+
+%% Оформление
+
+\newtcolorbox{rulesbox}[1]{%
+	tikznode boxed title,
+	enhanced,
+	arc=0mm,
+	interior style={white},
+	attach boxed title to top center= {yshift=-\tcboxedtitleheight/2},
+	fonttitle=\bfseries,
+	colbacktitle=white,coltitle=black,
+	boxed title style={size=normal,colframe=white,boxrule=0pt},
+	title={#1}}
+
+% Красивый серый фон
+\usepackage{framed} 
+\definecolor{shadecolor}{gray}{0.9}
+
+% Код
+\newcommand{\code}[1]{{\tt #1}}
+
+% Колонтитулы
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\fancyhf{}
+%\fancyhead[L]{}
+%\fancyhead[R]{\thepage}
+
+% Разделы и подразделы
+\usepackage[sf, sl, outermarks]{titlesec}
+\titleformat{\section}{\Large\bfseries\sffamily}{\thesection}{0.5em}{}
+\titleformat{\subsection}{\large\sffamily}{\thesubsection}{0.5em}{}
+
+% Содержание
+%\usepackage{tocloft}
+%\renewcommand{\cftsecfont}{\hspace{4.5em}\normalfont}
+%\renewcommand{\cftsubsecfont}{\hspace{5em}\normalfont}
+%\renewcommand{\cftsecpagefont}{\normalfont\hfill}
+%\renewcommand{\cfttoctitlefont}{\large\normalfont\hfill}
+%\renewcommand{\cftaftertoctitle}{\hfill}
+%\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+%\renewcommand{\cftsecafterpnum}{\hspace*{5.5em}\hfill}
+%\renewcommand{\cftsubsecafterpnum}{\hspace*{5.5em}\hfill}
+%\renewcommand{\cftsecaftersnum}{.}
+%\renewcommand{\cftsubsecaftersnum}{.}
+
+%% Комментарии
+\usepackage{comment}
+
+%% To-do
+\usepackage{todonotes}
+
+%% Литература
+\usepackage[backend = biber,
+			bibencoding = utf8, 
+			sorting = nty, 
+			maxcitenames = 4,
+			style = numeric-verb]{biblatex}
+\addbibresource{lit.bib}
+\usepackage{csquotes}
+
+%% Заголовок
+\title{{\normalsize Прикладная статистика в машинном обучении} \\ \vspace{0.5em} Задачи для подготовки к квизу \#4}
+\author{\rule{15cm}{0.4pt}}
+
+
+\begin{document}
+	
+	\maketitle
+	
+	\begin{center}
+		В каждом вопросе выберите все верные ответы.
+	\end{center}
+	
+	Рассмотрим случайное наблюдение $X$ из нормального распределения, $X \sim \mathcal{N}(\theta, \sigma^2)$. Для простоты предположим, что $\sigma^2 = 5$. Пусть априорное распределение $\theta$ является нормальным $\mathcal{N}(4, 8)$. 
+	
+	\begin{questions}
+		\question На основе условия задачи можно сделать вывод, что
+		\begin{choices}
+			\choice $f(\theta) = ce^{-(X-\theta)^2/10}$.
+			\CorrectChoice $f(\theta) = ce^{-(\theta-4)^2/16}$.
+			\choice $f(X | \theta) = ce^{-(\theta-4)^2/16}$.
+			\choice $f(X|\theta) = ce^{-\frac{1}{2}(X-\theta)^2/10}$.
+			\choice Нет верного ответа.
+		\end{choices}
+	
+		\question Пусть $X = 3$. Апостериорное распределение параметра $\theta$ задаётся как
+		\begin{choices}
+			\CorrectChoice $f(\theta | X) = Ce^{-\frac{(\theta - 4)^2}{16} - \frac{(3-\theta)^2}{10}}$.
+			\choice $f(X | \theta) = Ce^{-\frac{(\theta - 4)^2}{10} - \frac{(3-\theta)^2}{16}}$.
+			\choice $f(X, \theta) = Ce^{-\frac{(\theta - 4)^2}{16} - \frac{(3-\theta)^2}{10}}$.
+			\choice $f(\theta | X) = Ce^{-\frac{(\theta - 4)^2}{10} - \frac{(3-\theta)^2}{16}}$.
+			\choice Нет верного ответа.
+		\end{choices}
+		
+		\question При выделении полного квадрата относительно $\theta$ в степени экспоненты получается выражение
+		\begin{choices}
+			\CorrectChoice $-\dfrac{(\theta - 44/13)^2 + 152/13 - (44/13)^2}{80/13}$.
+			\choice $-\dfrac{(\theta - 126/169)^2 + 4/169 - (28/169)^2}{12/169}$.
+			\choice $-\dfrac{(\theta - 4)^2 + 12/13 - (155/13)^2}{1/13}$.
+			\choice $-\dfrac{(\theta + 1/21)^2 - 7/21 + (14/21)^2}{78/21}$.
+			\choice Нет верного ответа.
+		\end{choices}
+		
+		\question Апостериорное распределение $\theta$ с точностью до константы является
+		\begin{choices}
+			\choice $\mathrm{Beta}(1, 3)$.
+			\choice стандартным нормальным.
+			\CorrectChoice нормальным.
+			\choice распределением Вейбулла.
+			\choice Нет верного ответа.
+		\end{choices}
+	
+		\question 95\%-ый байесовский доверительный интервал для $\theta$
+		\begin{choices}
+			\choice совпадает с частотным.
+			\choice совпадает с 10\%-ым байесовским доверительным интервалом для $\sigma^2$.
+			\choice не может быть приближен при помощи симуляции
+			\choice вычисляется как $\P(\theta \in (a, b) | X) < 0.95$.
+			 \CorrectChoice Нет верного ответа.
+		\end{choices}
+	\end{questions}
+
+	Пусть $X_1$, $\ldots$, $X_n$ -- выборка независимых одинаково распределённых случайных величин из нормального распределения $\mathcal{N}(\mu, 1)$.
+	
+	\begin{questions}
+		\question При проверке гипотезы $H_0: \mu = 0$ против $H_1: \mu \ne 0$ рассчитывается статистика $(\bar{X} - 0)/\mathrm{se}(\bar{X})$. Эта статистика имеет распределение
+		\begin{choices}
+			\choice $t_{n-1}$.
+			\choice Нормальное.
+			\choice Фишера.
+			\choice Асимптотически нормальное, но $t$-распределение при малых $n$.
+			\choice Нет верного ответа.
+		\end{choices}
+	
+		\question При проверке гипотезы $H_0: \mu = 0$ против $H_1: \mu \ne 0$ оказалось, что p-value равно 0.06. Это означает, что
+		\begin{choices}
+			\choice нулевая гипотеза отвергается на уровне значимости 5\%.
+			\choice нулевая гипотеза отвергается на уровне значимости 1\%.
+			\choice нулевая гипотеза не отвергается при любом разумном уровне значимости.
+			\choice нулевая гипотеза не отвергается на уровне значимости 1\%.
+			\choice Нет верного ответа.
+		\end{choices}
+	
+		\question При проверке гипотезы $H_0: \mu = 0$ против $H_1: \mu \ne 0$
+		\begin{choices}
+			\item p-value окажется меньше нуля.
+			\item если p-value окажется равным 0.55, то $H_0$ будет отвергнута на любом разумном уровне значимости.
+			\item если p-value окажется равным 0.000, то $H_0$ будет отвергнута на любом разумном уровне значимости.
+			\item p-value равно функции правдоподобия, взятой в точке разницы между истинным параметром и ML-оценкой $\mu$.
+			\item Нет верного ответа.
+		\end{choices}
+	\end{questions}
+
+	При тестировании трёх видов лекарств против плацебо ($H_0: p_i = p_{plac}$) оказалось, что p-value в соответствующих тестах равны $0.000$, $0.001$, $0.08$.
+	
+	\begin{questions}
+		\question На основании условия задачи можно сделать вывод о том, что на уровне значимости 5\%
+		\begin{choices}
+			\choice только одно лекарство статистически отличается от плацебо.
+			\choice только одно лекарство статистически не отличается от плацебо.
+			\choice существует разумный уровень значимости, на котором $H_0$ не будет отвергнута для первого лекарства.
+			\choice не существует разумного уровня значимости, на котором $H_0$ будет отвергнута для третьего лекарства.
+			\choice Нет верного ответа.
+		\end{choices}
+	
+		\question При проведении множественного тестирования методом Бонферрони
+		\begin{choices}
+			\choice $H_0$ будет отвергнута для третьего лекарства.
+			\choice каждое p-value необходимо сравнивать с $\alpha / 2$.
+			\choice только одна нулевая гипотеза не будет отвергнута.
+			\choice следует всегда выбрать уровень значимости 10\%.
+			\choice Нет верного ответа.
+		\end{choices}
+	\end{questions}
+
+\end{document} 
+	
