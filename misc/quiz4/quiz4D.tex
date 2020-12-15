@@ -1,0 +1,314 @@
+\documentclass[10pt, a4paper]{exam}
+
+%% Язык
+\usepackage{cmap} % Поиск в PDF
+\usepackage{mathtext} % Кириллица в формулах
+\usepackage[T2A]{fontenc} % Кодировка
+\usepackage[utf8]{inputenc} % Кодировка
+\usepackage[english,russian]{babel} % Локализация, переносы
+
+%% Шрифты
+
+% Serif
+%\usepackage{euscript} % Шрифт Евклид
+%\usepackage{mathrsfs} % Шрифт для математики
+\usepackage{libertinus}
+
+% Sans-serif
+%\renewcommand{\rmdefault}{cmss}
+%\renewcommand{\ttdefault}{cmss}
+%\usepackage{sfmath}
+
+% Настройки для xelatex
+%\usepackage{polyglossia} % Для выбора языка в xelatex
+%\setmainlanguage{russian}
+%\setotherlanguages{english}
+% Ligatures=TeX is on by default
+% https://tex.stackexchange.com/questions/323542/
+%\setmainfont[Ligatures=TeX]{Cantarell}
+%\newfontfamily{\cyrillicfonttt}{Times New Roman}
+%\newfontfamily\cyrillicfont{Cantarell}[Script=Cyrillic]
+%\setsansfont[Ligatures=TeX]{Cantarell}
+%\newfontfamily\cyrillicfontsf{Cantarell}[Script=Cyrillic]
+%\setmonofont{Courier New}
+%\newfontfamily\cyrillicfonttt{Courier New}[Script=Cyrillic]
+
+%% Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{icomma}
+
+% Операторы
+\DeclareMathOperator*\plim{plim}
+\DeclareMathOperator{\sgn}{sign}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\amn}{arg\,min}
+\DeclareMathOperator*{\amx}{arg\,max}
+\DeclareMathOperator{\cov}{Cov}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Corr}{Corr}
+\DeclareMathOperator{\pCorr}{pCorr}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\let\P\relax
+\DeclareMathOperator{\P}{\mathbb{P}}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+% Распределения
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cBinom}{\mathcal{Binom}}
+\newcommand{\cPois}{\mathcal{Pois}}
+\newcommand{\cBeta}{\mathcal{Beta}}
+\newcommand{\cGamma}{\mathcal{Gamma}}
+
+% Множества
+\def \R{\mathbb{R}}
+\def \N{\mathbb{N}}
+\def \Z{\mathbb{Z}}
+
+% Другое
+\newcommand{\dx}[1]{\,\mathrm{d}#1} % Для интеграла: маленький отступ и прямая d
+\newcommand{\ind}[1]{\mathbbm{1}_{\{#1\}}} % Индикатор события
+\newcommand{\iid}{\mathrel{\stackrel{\rm i.\,i.\,d.}\sim}}
+\newcommand{\const}{\mathrm{const}}
+
+%% Изображения
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{physics}
+\usepackage{wrapfig} % Обтекание рисунков и таблиц текстом
+\usepackage{tikz}
+
+%% Таблицы
+\usepackage{array, tabularx, tabulary, booktabs}
+\usepackage{longtable}  % Длинные таблицы
+\usepackage{multirow} % Слияние строк в таблице
+
+%% Cписки
+\usepackage{multicol}
+\usepackage{enumitem}
+
+%% Гиперссылки
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{8b00ff}
+\hypersetup{colorlinks = true,
+			linkcolor = linkcolor,
+			urlcolor = linkcolor,
+			citecolor = linkcolor}
+
+%% Выравнивание
+\setlength{\parskip}{0.5em} % Расстояние между абзацами
+\usepackage{geometry} % Поля
+\geometry{
+	a4paper,
+	left=20mm,
+	top=20mm,
+	right=20mm}
+\setlength{\parindent}{0cm} % Отступ (красная строка)
+\linespread{1.0} % Интерлиньяж
+\usepackage[many]{tcolorbox}  
+
+%% Оформление
+
+\newtcolorbox{rulesbox}[1]{%
+	tikznode boxed title,
+	enhanced,
+	arc=0mm,
+	interior style={white},
+	attach boxed title to top center= {yshift=-\tcboxedtitleheight/2},
+	fonttitle=\bfseries,
+	colbacktitle=white,coltitle=black,
+	boxed title style={size=normal,colframe=white,boxrule=0pt},
+	title={#1}}
+
+% Красивый серый фон
+\usepackage{framed} 
+\definecolor{shadecolor}{gray}{0.9}
+
+% Код
+\newcommand{\code}[1]{{\tt #1}}
+
+% Колонтитулы
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\fancyhf{}
+%\fancyhead[L]{}
+%\fancyhead[R]{\thepage}
+
+% Разделы и подразделы
+\usepackage[sf, sl, outermarks]{titlesec}
+\titleformat{\section}{\Large\bfseries\sffamily}{\thesection}{0.5em}{}
+\titleformat{\subsection}{\large\sffamily}{\thesubsection}{0.5em}{}
+
+% Содержание
+%\usepackage{tocloft}
+%\renewcommand{\cftsecfont}{\hspace{4.5em}\normalfont}
+%\renewcommand{\cftsubsecfont}{\hspace{5em}\normalfont}
+%\renewcommand{\cftsecpagefont}{\normalfont\hfill}
+%\renewcommand{\cfttoctitlefont}{\large\normalfont\hfill}
+%\renewcommand{\cftaftertoctitle}{\hfill}
+%\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+%\renewcommand{\cftsecafterpnum}{\hspace*{5.5em}\hfill}
+%\renewcommand{\cftsubsecafterpnum}{\hspace*{5.5em}\hfill}
+%\renewcommand{\cftsecaftersnum}{.}
+%\renewcommand{\cftsubsecaftersnum}{.}
+
+%% Комментарии
+\usepackage{comment}
+
+%% To-do
+\usepackage{todonotes}
+
+%% Литература
+\usepackage[backend = biber,
+			bibencoding = utf8, 
+			sorting = nty, 
+			maxcitenames = 4,
+			style = numeric-verb]{biblatex}
+\addbibresource{lit.bib}
+\usepackage{csquotes}
+
+%% Заголовок
+\title{{\normalsize Прикладная статистика в машинном обучении} \\ \vspace{0.5em} Квиз \#4D}
+\author{\rule{15cm}{0.4pt}}
+
+
+\begin{document}
+	
+	\maketitle
+	
+	\begin{center}
+		В каждом вопросе выберите все верные ответы.
+	\end{center}
+	
+	Рассмотрим выборку независимых одинаково распределённых случайных величин $X_1$, $X_2$, $\ldots$, $X_N$ из нормального распределения $\mathcal{N}(\mu, 15)$. Предположим, что априорное распределение $\mu$ является нормальным $\mathcal{N}(1, 1)$.
+	
+	\begin{questions}
+		\question На основе условия задачи можно сделать вывод, что
+		\begin{choices} 
+			\choice $f(\mu | X) = \prod_i ce^{-\frac{(\mu - 1)^2}{2}}$.
+			\choice $f(X | \mu) = \prod_i ce^{-\frac{(X_i - \mu)^2}{15}}$.
+			\choice $f(X | \mu) =  ce^{-\frac{(X_i - \mu)^2}{2}}$.
+			\choice $f(\mu | X) = ce^{-\frac{(\mu - 1)^2}{2}}$.
+			\choice Нет верного ответа.
+		\end{choices}
+	
+		\question Для простоты далее рассмотрим только наблюдение $X_1$. Оказалось, что $X_1 = 7$. Апостериорное распределение параметра $\mu$ задаётся как
+		\begin{choices}
+			\choice $f( X_{1} | \mu) = Ce^{\frac{(7 - \mu)^2}{30} + \frac{(\mu - 7)^2}{30}}$.
+			\choice $f(\mu | X_{1}) = Ce^{-\frac{(7 - \mu)^2}{30} - \frac{(\mu - 1)^2}{2}}$.
+			\choice $f(\mu | X_{1}) = Ce^{-\frac{(7 - \mu)^2}{2} - \frac{(\mu - 7)^2}{30}}$.
+			\choice $f(X_1 | \mu) = Ce^{-\frac{\mu^2}{30} + \frac{(7 - \mu)^2}{60}}$.
+			\choice Нет верного ответа.
+		\end{choices}
+	
+		\question Апостериорное распределение $\mu$ с точностью до константы является 
+		\begin{choices}
+			\choice Стандартным нормальным.
+			\choice Имеющим конечное математическое ожидание.
+			\choice Экспоненциальным распределением.
+			\choice Нормальным, имеющим бесконечную дисперсию.
+			\choice Нет верного ответа.
+		\end{choices}
+		
+		\question Константа $C$
+		\begin{choices}
+			\choice Обычно принимается равной $\bar{X}$.
+			\choice Не вычисляется даже приблизительно.
+			\choice Иногда вычисляется путём угадывания вида апостериорного распределения.
+			\choice Обычно получается отрицательной.
+			\choice Нет верного ответа.
+		\end{choices}
+	
+		\question Выражение $\P(\mu \in (c, d) | X_5) = 0.9$
+		\begin{choices}
+			\choice Является формулой $95\%$-го байесовского доверительного интервала.
+			\choice Является формулой $90\%$-го частотного доверительного интервала.
+			\choice Не может быть вычислено за конечное число итераций. 
+			\choice Может быть вычислено при помощи симуляций. 
+			\choice Нет верного ответа.
+		\end{choices}
+	
+		\question Точечная байесовская оценка $\mu$
+		\begin{choices}
+			\choice Может быть получена из анализа гистограммы апостериорного распределения.
+			\choice Равна медиане $f(\mu)$.
+			\choice Всегда совпадает с точечной частотной оценкой $\mu$.
+			\choice Не может быть равна моде апостериорного распределения.
+			\choice Нет верного ответа.
+		\end{choices}
+		\vspace{1em}
+	
+		Далее будем рассуждать в терминах частотного подхода и считать, что $\mu$ -- константа.
+		\vspace{1em}
+		
+		\question Пусть тестируется гипотеза $H_0: \mu = 20$ против $H_1: \mu > 20$. Тогда
+		\begin{choices}
+			\choice Если p-value окажется равным 0.01, то 10\%-ом уровне значимости тест Вальда отвергнет нулевую гипотезу. 
+			\choice Если p-value окажется равным 0.01, то 10\%-ом уровне значимости LR-тест не отвергнет нулевую гипотезу. 
+			\choice Если при использовании Z-теста p-value окажется 0.99, то $H_0$ будет отвергнута на любом разумном уровне значимости.
+			\choice Если используется LR-тест, но p-value не существует.
+			\choice Нет верного ответа.
+		\end{choices}
+	
+		\question Пусть тестируется гипотеза $H_0: \mu = 12$ против $H_1: \mu \ne 12$. Тогда
+		\begin{choices}
+			\choice p-value обязательно лежит в границах $[0.000, 0.12]$.
+			\choice Если p-value равно 0.5, то нулевая гипотеза не отвергается на уровне значимости 51\%.
+			\choice p-value обязательно лежит в границах $[0.000, 1.000]$.
+			\choice Если p-value равно 0.000, то существует разумный уровень значимости, на котором нулевая гипотеза не отвергается.
+			\choice Нет верного ответа.
+		\end{choices}
+	\end{questions}
+	
+	При тестировании трёх видов лекарств против плацебо ($H_{0,i}: p_i = p_{plac}$) оказалось, что соответствующие p-value равны 1.000, 1.000, 0.000.
+	
+	\begin{questions}
+		\question На основании условия задачи можно сделать вывод, что на уровне значимости 5\%
+		\begin{choices}
+			\item Только третье лекарство статистически неотличимо от плацебо.
+			\item Первое лекарство статистически отлично от плацебо на уровне значимости $10\%$.
+			\item Все лекарства статистически неотличимы от плацебо.
+			\item Только первые два лекарства статистически отличны от плацебо.
+			\item Нет верного ответа.
+		\end{choices}
+	
+		\question При проведении множественного тестирования методом Бонферрони
+		\begin{choices}
+			\item Только первое лекарство статистически неотличимо от плацебо.
+			\item Только первое лекарство статистически отлично от плацебо.
+			\item Только третье лекарство статистически отлично от плацебо.
+			\item Первое и второе лекарство статистически отличны от плацебо на уровне значимости 5\%.
+			\item Нет верного ответа.
+		\end{choices}
+	
+		\question При проведении множественного тестирования методом Бенджамини-Хохберга
+		\begin{choices}
+			\item На первом шаге p-value следует упорядочить как 1.000, 1.000, 0.000.
+			\item Окажется невозможным сравнить $p_{(1)}$ и $\ell_{(1)}$.
+			\item Результаты тестирования ($i$-ая гипотеза отвергается/не отвергается) не будут совпадать с результатами метода Бонферрони.  
+			\item Результаты тестирования ($i$-ая гипотеза отвергается/не отвергается) будут совпадать с результатами без корректировки.  
+			\item Нет верного ответа.
+		\end{choices}
+	
+		\question При проведении множественного тестирования методов Бенджамини-Хохберга на уровне значимости 5\%
+		\begin{choices}
+			\item Ровно два лекарства статистически неотличимы от плацебо.
+			\item Ровно одно лекарство статистически неотличимо от плацебо.
+			\item Все три лекарства статистически неотличимы от плацебо.
+			\item Все три лекарства статистически отличны от плацебо.
+			\item Нет верного ответа.
+		\end{choices}
+	\end{questions}
+	
+
+
+\end{document} 
+	
